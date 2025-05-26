@@ -49,4 +49,12 @@ books.each do |attrs|
   end
 end
 
+puts "👤 Creating a test user..."
+
+user = User.create!(
+  email: "test@test.com",
+  password: "123123",
+  password_confirmation: "123123"
+)
+
 puts "🌱 Done seeding!"
