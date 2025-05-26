@@ -1,18 +1,4 @@
 <div class="container mt-4">
-
-  <!-- 🔍 Search Bar -->
-  <div class="row mb-4">
-    <div class="col-md-6">
-      <%= form_with url: books_path, method: :get, local: true do |form| %>
-        <div class="input-group">
-          <%= form.text_field :query, params[:query], class: "form-control", placeholder: "Search books..." %>
-          <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <!-- 📚 Books Grid -->
   <div class="row g-4">
     <% @books.each do |book| %>
       <div class="col-md-4">
@@ -25,5 +11,4 @@
       </div>
     <% end %>
   </div>
-
 </div>
