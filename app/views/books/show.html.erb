@@ -1,2 +1,33 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<!-- app/views/books/show.html.erb -->
+
+<div class="book-container" style="max-width: 800px; margin: 0 auto; padding: 24px; font-family: sans-serif;">
+
+  <div style="margin-bottom: 24px;">
+    <%= link_to books_path, style: "text-decoration: none; font-size: 24px;" do %>
+      &larr;
+    <% end %>
+    <h1 style="display: inline-block; margin-left: 12px;"><%= @book.title %></h1>
+    <h2 style="color: grey; font-weight: 400;">By <%= @book.author %></h2>
+  </div>
+
+  <div style="text-align: center; padding: 16px; border: 1px solid #ccc; border-radius: 12px; margin-bottom: 24px;">
+    <%= image_tag @book.image_url, alt: @book.title, style: "max-width: 100%; height: auto;" %>
+  </div>
+
+  <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
+    <%= @book.description %>
+  </p>
+
+  <div style="margin-bottom: 24px;">
+    <strong>Select Languages:</strong>
+    <button style="background-color: #4f7dfd; color: white; border: none; padding: 8px 16px; border-radius: 24px; margin: 0 8px;">English</button>
+    <button style="background-color: transparent; border: none; padding: 8px 16px;">Spanish</button>
+    <span style="margin: 0 16px;">|</span>
+    <button style="border: 1px solid #ccc; border-radius: 24px; padding: 8px 16px; background: white;">
+      Add to library ❤️
+    </button>
+  </div>
+
+  <%= link_to "Open book ▶", book_path(@book) %>
+
+</div>

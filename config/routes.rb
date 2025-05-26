@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   get 'users/show'
   get 'favorites/index'
-  get 'books/index'
-  get 'books/show'
+  resources :books, only: [:index, :show]
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
