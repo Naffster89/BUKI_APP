@@ -1,11 +1,40 @@
-<div class="container mt-4">
+<div class="container my-5">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <%= form_with url: books_path, method: :get, local: true do |form| %>
+        <div class="row g-2">
+          <!-- Search field -->
+          <div class="col-md-4">
+            <%= form.text_field :query, value: params[:query], class: "form-control", placeholder: "Search books..." %>
+          </div>
+          <!-- Age filter -->
+          <div class="col-md-3">
+            <%= form.select :age, options_for_select(["All Ages", "0-2","3-5", "6-8", "9-12"], params[:age]), {}, class: "form-select" %>
+          </div>
+          <!-- Language filter -->
+          <div class="col-md-3">
+            <%= form.select :language, options_for_select(["All Languages", "English" ,"japanese","spanese", "Burmese", "Bilingual"], params[:language]), {}, class: "form-select" %>
+          </div>
+          <!-- Submit button -->
+          <div class="col-md-2">
+            <%= form.submit "Filter", class: "btn btn-primary w-100" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <h1>Collection</h1>
   <div class="row g-4">
     <% @books.each do |book| %>
-      <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
+      <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
+        <div class="card rounded">
+          <% if book.image_url.present? %>
+            <img src="<%= book.image_url %>" class="card-img-top rounded" alt="Book Cover">
+          <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= book.title %></h5>
             <p class="card-text"><strong><%= book.author %></strong></p>
+            <p><%= book.description %></p>
           </div>
         </div>
       </div>
