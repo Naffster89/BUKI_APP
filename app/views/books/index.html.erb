@@ -1,17 +1,18 @@
-<div class="container my-10">
-  <h1 class="centered-text">Welcome to BUKI APP!</h1>
-
+<div class="container my-5">
+  <div class="centered-text">
+    <h1>Welcome to BUKI APP!</h1>
+    <p>Select your favorite languages and manage your favorite books by creating an account.</p>
+    <a href="#" class="button-like text-decoration-none p-2 text-white">Create an account</a>
+  </div>
   <div class="row justify-content-center">
-    <div class="col-sm-10 my-3">
+    <div class="col-sm-12 my-3">
       <%= form_with url: books_path, method: :get, class: "d-flex" do %>
         <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search your book" %>
         <%= submit_tag "Search", name: "", class: "btn btn-primary ms-2" %>
       <% end %>
     </div>
   </div>
-
   <h1>Collection</h1>
-
   <div class="row g-4">
     <% @books.each do |book| %>
       <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
@@ -28,7 +29,6 @@
                 <span>No cover</span>
               </div>
             <% end %>
-
             <div class="card-body">
               <h5 class="card-title"><%= book.title %></h5>
               <p class="card-text"><strong><%= book.author %></strong></p>
