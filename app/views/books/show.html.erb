@@ -28,12 +28,12 @@
     <button style="background-color: transparent; border: none; padding: 8px 16px;">Spanish</button>
     <span style="margin: 0 16px;">|</span>
     <button style="border: 1px solid #ccc; border-radius: 24px; padding: 8px 16px; background: white;">
-      Add to library ❤️
+      <%= render "favorites/create", book: @book %>
     </button>
   </div>
 
   <%= link_to "Open book ▶", book_path(@book), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
 
-  <%= render "favorites/create", book: @book %>
+
 
 </div>

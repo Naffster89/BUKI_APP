@@ -1,13 +1,12 @@
 <div id="favorite-<%= book.id %>">
   <% if current_user.favorited?(book) %>
-    <%= link_to favorite_path(book), data: {turbo_method: :delete} do %>
+    <%= link_to favorite_path(book),  style: "color: inherit; text-decoration: none;", data: {turbo_method: :delete} do %>
       Favorited <i class="fa-solid fa-heart text-danger"></i>
     <% end %>
-
   <% else %>
     <%= simple_form_for [book, Favorite.new] do |f| %>
       <%= f.button :button do %>
-        Add to Favorites <i class="fa-solid fa-heart text-danger"></i>
+        Add to Favorites <i class="fa-regular fa-heart text-danger"></i>
       <% end %>
     <% end %>
   <% end %>
