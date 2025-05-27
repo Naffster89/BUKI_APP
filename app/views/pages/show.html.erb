@@ -1,0 +1,42 @@
+<div>
+  <% if @page.photo.attached? %>
+    <div class="mb-3 text-center">
+      <%= image_tag url_for(@page.photo), style: "max-width: 800px; max-height: 600px; width: auto; height: auto;" %>
+    </div>
+  <% end %>
+
+  <strong>Selected Languages:</strong>
+
+  <% if current_user.languages.present? %>
+    <% current_user.languages.each_with_index do |language, index| %>
+      <div>
+        <input type="checkbox" checked disabled id="<%= language %>-<%= index %>">
+        <label for="<%= language %>-<%= index %>"><%= language %></label>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No languages selected.</p>
+  <% end %>
+</div>
+
+<div style="margin-top: 16px;">
+  <%= link_to "Return to Book", book_path(@book) %>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <div style="width: 120px;">
+    <% if @page_number > 1 %>
+      <%= link_to "← Previous", book_page_path(@book, @page_number - 1), method: :get, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
+
+  <div>
+    Page <%= @page_number %> of <%= @total_pages %>
+  </div>
+
+  <div style="width: 120px; text-align: right;">
+    <% if @page_number < @total_pages %>
+      <%= link_to "Next →", book_page_path(@book, @page_number + 1), method: :get, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,21 +1,21 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [ :home ]
+  skip_before_action :authenticate_user!, only: [:home]
 
   def home
-
   end
 
   def show
     @book = Book.find(params[:book_id])
-    @page = @book.pages.find_by(page_number: params[:page_number])
+    @page_number = params[:page_number].to_i
+    @page = @book.pages.find_by(page_number: @page_number)
 
     unless @page
       redirect_to book_path(@book), alert: "Page not found"
       return
     end
 
+    @total_pages = @book.pages.count
     @language = params[:language] || "en"
-
     @page.text ||= {}
 
     if @page.text[@language].blank? && @page.text["en"].present?
