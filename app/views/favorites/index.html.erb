@@ -1,20 +1,28 @@
-<div class="container mt-5">
+<div class="container my-5">
   <h1>Favorites</h1>
   <!-- Copy 3 divs class below from books/index -->
   <div class="cards-area row g-4">
     <% if @books.present? %>
       <% @books.each do |favorite| %>
-        <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
-          <div class="card rounded h-100">
-            <% if favorite.cover_image.attached? %>
-              <%= image_tag favorite.cover_image %>
-            <% else %>
-              <p>No cover image available.</p>
-            <% end %>
-            <div class="book-title"><strong><%= favorite.title %></strong></div>
-            <div class="book-author"><%= favorite.author %></div>
-            <%= render partial: "favorites/create", locals: { book: favorite } %>
-          </div>
+        <div class="col-sm-6 col-md-4 col-lg-3 d-flex mt-5">
+          <%= link_to book_path(favorite), style: "text-decoration: none; color: inherit;" do %>
+            <div class="card rounded h-100 w-100">
+              <% if favorite.cover_image.attached? %>
+                <%= image_tag favorite.cover_image,
+                  class: "card-img-top rounded",
+                  style: "max-height: 300px; object-fit: cover;" %>
+              <% else %>
+                <p>No cover image available.</p>
+              <% end %>
+              <div style="margin: 12px 20px 12px;">
+                <div class="book-title"><strong><%= favorite.title %></strong></div>
+                <div class="book-author"><%= favorite.author %></div>
+              </div>
+              <div style="margin: 12px 20px 12px 20px;">
+                <%= render partial: "favorites/create", locals: { book: favorite } %>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
     <% else %>

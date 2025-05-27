@@ -1,10 +1,11 @@
 <div>
-  <strong>Selected Languages:</strong>
   <% if @page.photo.attached? %>
-    <div>
-      <%= image_tag url_for(@page.photo), style: "max-width: 600px; height: 500px;" %>
+    <div class="mb-3 text-center">
+      <%= image_tag url_for(@page.photo), style: "max-width: 800px; max-height: 600px; width: auto; height: auto;" %>
     </div>
   <% end %>
+
+  <strong>Selected Languages:</strong>
 
   <% if current_user.languages.present? %>
     <% current_user.languages.each_with_index do |language, index| %>

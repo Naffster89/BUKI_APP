@@ -55,6 +55,7 @@ gem 'ostruct'
 gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem "pg_search"
+gem 'deepl-rb', require: 'deepl'
 
 
 
