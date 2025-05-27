@@ -32,7 +32,7 @@
     </button>
   </div>
 
-  <%= link_to "Open book ▶", book_path(@book), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
+  <%= link_to "Open book ▶", book_page_path(@book, 1), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
 
   <%= render "favorites/create", book: @book %>
 

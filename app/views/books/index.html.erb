@@ -1,26 +1,31 @@
 <div class="container my-10">
   <h1 class="centered-text">Welcome to BUKI APP!</h1>
+
   <div class="row justify-content-center">
     <div class="col-sm-10 my-3">
       <%= form_with url: books_path, method: :get, class: "d-flex" do %>
-        <%= text_field_tag :query,
-            params[:query],
-            class: "form-control",
-            placeholder: "Search your book"
-        %>
+        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search your book" %>
         <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
+
   <h1>Collection</h1>
+
   <div class="row g-4">
     <% @books.each do |book| %>
       <div class="col-sm-6 col-md-4 col-lg-3 d-flex">
         <%= link_to book_path(book), style: "text-decoration: none; color: inherit;" do %>
           <div class="card rounded h-100">
-            <% if book.image_url.present? %>
-              <img src="<%= book.image_url %>" class="card-img-top rounded" alt="Book Cover">
+
+            <% if book.cover_image.attached? %>
+              <%= image_tag url_for(book.cover_image), class: "card-img-top rounded", alt: "Book Cover", style: "max-height: 300px; object-fit: cover;" %>
+            <% else %>
+              <div style="height: 300px; background-color: #eee;" class="d-flex align-items-center justify-content-center rounded">
+                <span>No cover</span>
+              </div>
             <% end %>
+
             <div class="card-body">
               <h5 class="card-title"><%= book.title %></h5>
               <p class="card-text"><strong><%= book.author %></strong></p>

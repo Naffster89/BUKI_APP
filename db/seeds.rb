@@ -48,7 +48,6 @@ book_data.each do |attrs|
   file = File.open(Rails.root.join("app/assets/images/#{image_file}"))
   book.cover_image.attach(io: file, filename: image_file, content_type: "image/jpeg")
 
-  # Create and attach images for Pages
   3.times do |i|
     page = Page.create!(
       book: book,
@@ -56,10 +55,24 @@ book_data.each do |attrs|
       page_number: i + 1
     )
 
-    # Reuse the same image for simplicity (you can change this logic per page)
-    file = File.open(Rails.root.join("app/assets/images/#{image_file}"))
-    page.photo.attach(io: file, filename: "page_#{i + 1}_#{image_file}", content_type: "image/jpeg")
+    # Use special images for Peter Rabbit
+    if book.title == "The Tale of Peter Rabbit"
+      page_image = "Peter P#{i + 1}.jpg"
+    else
+      page_image = image_file
+    end
+
+    image_path = Rails.root.join("app/assets/images", page_image)
+
+    if File.exist?(image_path)
+      file = File.open(image_path)
+      page.photo.attach(io: file, filename: page_image, content_type: "image/jpeg")
+      puts "🖼️ Attached '#{page_image}' to Page #{page.page_number} of '#{book.title}'"
+    else
+      puts "⚠️ Image '#{page_image}' not found for Page #{page.page_number} of '#{book.title}'"
+    end
   end
+
 end
 
 puts "👤 Creating a test user..."
