@@ -1,0 +1,16 @@
+.custom-button {
+  padding: 16px 40px;
+  background-color: #5079FF !important; /* Override Bootstrap's default primary color */
+  color: white;
+  border-radius: 32px; /* Makes it rounded */
+  color: #FFF;
+  font-family: Mulish;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.custom-button:hover {
+  background-color: #4066CC !important;
+}

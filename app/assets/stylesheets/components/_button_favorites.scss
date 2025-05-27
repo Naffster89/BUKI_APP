@@ -1,0 +1,11 @@
+.custom-fav-button {
+  padding: 16px 32px;
+  background-color: #ffd6d9 !important; /* Override Bootstrap's primary color */
+  color: rgb(61, 61, 61);
+  border-radius: 8px; /* Rounded edges */
+  font-size: 16px;
+}
+
+.custom-fav-button i {
+  margin-left: 8px; /* Space between text and icon */
+}
