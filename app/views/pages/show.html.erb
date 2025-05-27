@@ -1,17 +1,34 @@
-<%= form_with url: book_page_path(@book, 1), method: :get html: { class: 'input-group' } do %>
-  <fieldset class="form-group check_boxes optional snippet_tags">
-  <legend class="col-form-label pt-0">Select Languages</legend>
-  <input type="hidden" name="languages[]" value="">
-  <% current_user.languages.each_with_index do |language, index| %>
-    <div class="tag-item">
-      <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
-      <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language %></label>
-    </div>
+<div>
+  <strong>Selected Languages:</strong>
+  <% if current_user.languages.present? %>
+    <% current_user.languages.each_with_index do |language, index| %>
+      <div>
+        <input type="checkbox" checked disabled id="<%= language %>-<%= index %>">
+        <label for="<%= language %>-<%= index %>"><%= language %></label>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No languages selected.</p>
   <% end %>
-</fieldset>
-   <div class="input-group-append">
-    <button class="btn btn-outline-primary" type="submit">
-      Open Book
-    </button>
-  </div>
-<% end %>
+</div>
+
+<div style="margin-top: 16px;">
+  <%= link_to "Return to Book", book_path(@book) %>
+</div>
+
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+  <% if @page_number > 1 %>
+    <%= link_to "← Previous", book_page_path(@book, @page_number - 1), method: :get, class: "btn btn-outline-secondary" %>
+  <% else %>
+    <span></span>
+  <% end %>
+
+  <span>Page <%= @page_number %> of <%= @total_pages %></span>
+
+  <% if @page_number < @total_pages %>
+    <%= link_to "Next →", book_page_path(@book, @page_number + 1), method: :get, class: "btn btn-outline-secondary" %>
+  <% else %>
+    <span></span>
+  <% end %>
+</div>
