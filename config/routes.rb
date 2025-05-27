@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :books, only: [:index, :show] do
+  resources :books, only: [:index, :show, :update ] do
     resources :pages, only: [:show], param: :page_number
   end
   resources :users, only: [:show]

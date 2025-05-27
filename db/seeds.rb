@@ -43,7 +43,7 @@ books.each do |attrs|
   3.times do |i|
     Page.create!(
       book: book,
-      text: "This is page #{i + 1} of #{book.title}.",
+      text: {en: "This is page #{i + 1} of #{book.title}."},
       page_number: i + 1
     )
   end
