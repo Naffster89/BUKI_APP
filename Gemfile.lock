@@ -163,8 +163,6 @@ GEM
       activesupport (>= 6.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    i18n_data (1.1.0)
-      simple_po_parser (~> 1.1)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -303,7 +301,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    simple_po_parser (1.1.6)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
@@ -363,7 +360,6 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-sass (~> 6.1)
-  i18n_data
   importmap-rails
   jbuilder
   ostruct
