@@ -348,11 +348,8 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-
-  acts_as_favoritor
-
   activestorage-cloudinary-service
-
+  acts_as_favoritor
   autoprefixer-rails
   bootsnap
   bootstrap (~> 5.2)
