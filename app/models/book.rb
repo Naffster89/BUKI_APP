@@ -1,8 +1,9 @@
 class Book < ApplicationRecord
   has_many :pages, dependent: :destroy
 
-  acts_as_favoritable
+  has_one_attached :cover_image
 
+  acts_as_favoritable
 
   include PgSearch::Model
 
