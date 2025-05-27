@@ -1,20 +1,33 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<div class="navbar navbar-bottom">
   <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item d-flex align-items-center">
-            <%= link_to "Home", "#", class: "nav-link" %>
-            <%= link_to "Library", "#", class: "nav-link" %>
-            <%= link_to "Games", "#", class: "nav-link" %>
-            <%= link_to "Settings", "#", class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+
+  <div class="navbar-link">
+    <%= link_to root_path, class: "nav-link" do %>
+      <%= image_tag "home.svg", alt: "text" %>
+      <p>Home</p>
+    <% end %>
+  </div>
+
+  <div class="navbar-link">
+    <%= link_to "#", class: "nav-link" do %>
+      <%= image_tag "favorites.svg", alt: "text" %>
+      <p>Favorites</p>
+    <% end %>
+  </div>
+
+  <div class="navbar-link">
+    <%= link_to "#", class: "nav-link" do %>
+      <%= image_tag "games.svg", alt: "text" %>
+      <p>Games</p>
+    <% end %>
+  </div>
+
+  <div class="navbar-link">
+    <%= link_to "#", class: "nav-link" do %>
+      <%= image_tag "settings.svg", alt: "text" %>
+      <p>Settings</p>
+    <% end %>
+  </div>
+
   </div>
 </div>
