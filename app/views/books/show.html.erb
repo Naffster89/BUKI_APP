@@ -1,10 +1,8 @@
 <!-- app/views/books/show.html.erb -->
-
 <div class="book-container" style="max-width: 1200px; margin: 0 auto; padding: 24px; font-family: sans-serif;">
-
   <div style="margin-bottom: 24px;">
     <%= link_to books_path, style: "text-decoration: none; font-size: 36px; color: black;" do %>
-      <
+      &lt;
     <% end %>
     <h1 style="display: inline-block; margin-left: 12px;"><%= @book.title %></h1>
     <h2 style="color: grey; font-weight: 400;">By <%= @book.author %></h2>
@@ -12,7 +10,7 @@
 
   <div style="text-align: center; padding: 16px; border: 1px solid #ccc; border-radius: 12px; margin-bottom: 24px;">
     <% if @book.cover_image.attached? %>
-      <%= image_tag @book.cover_image %>
+      <%= image_tag @book.cover_image, alt: @book.title, style: "max-width: 100%; height: 350px; object-fit: contain;" %>
     <% else %>
       <p>No cover image available.</p>
     <% end %>
@@ -22,18 +20,23 @@
     <%= @book.description %>
   </p>
 
-  <div style="margin-bottom: 24px;">
-    <strong>Select Languages:</strong>
-    <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
-    <button style="background-color: #4f7dfd; color: white; border: none; padding: 8px 16px; border-radius: 24px; margin: 0 8px;">English</button>
-    <button style="background-color: transparent; border: none; padding: 8px 16px;">Spanish</button>
-    <span style="margin: 0 16px;">|</span>
-    <%= render "favorites/create", book: @book %>
-    </div>
+  <div style="margin-bottom: 24px; display: flex; gap: 12px; align-items: flex-end;">
+    <%= form_with url: book_path(@book), method: :get, data: { controller: "language-select" }, local: true do |f| %>
+      <div style="width: 100%;">
+        <strong>Select Language:</strong><br>
+        <%= f.select :language_code,
+              DeepL.languages.sort_by(&:name).map { |lng| [lng.name, lng.code.downcase] },
+              { prompt: "Select a language", selected: params[:language_code] },
+              {
+                style: "margin-top: 8px; width: 200px; padding: 8px; border-radius: 8px; border: 1px solid #ccc;",
+                data: { action: "change->language-select#update" },
+              } %>
+      </div>
+    <% end %>
+
+    <%= button_tag "Add to library ❤️", type: "button", style: "height: 40px; border: 1px solid #ccc; border-radius: 24px; background: white;" %>
   </div>
 
-  <%= link_to "Open book ▶", book_page_path(@book, 1), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
-
-
-
+  <%= link_to "Open book ▶", book_page_path(@book, page_number: 1, language: params[:language_code]), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
 </div>
+
