@@ -10,6 +10,13 @@ puts "📚 Creating books..."
 
 book_data = [
   {
+    title: "Peter's Bizarre Adventures",
+    author: "Harry Potter",
+    description: "Peter goes on a batshit crazy journey in his sleep.",
+    language: "English",
+    cover_image: "Peter's Bizarre Adventures.jpg"
+  },
+  {
     title: "The Story of a Fierce Bad Rabbit",
     author: "Beatrix Potter",
     description: "This, along with The Tale of Miss Moppet, was intended for very young children...",
@@ -48,23 +55,20 @@ book_data.each do |attrs|
   file = File.open(Rails.root.join("app/assets/images/#{image_file}"))
   book.cover_image.attach(io: file, filename: image_file, content_type: "image/jpeg")
 
-  3.times do |i|
+  # Create 5 pages per book
+  5.times do |i|
     page = Page.create!(
       book: book,
       text: "This is page #{i + 1} of #{book.title}.",
       page_number: i + 1
     )
 
-
     # Use special images for Peter Rabbit
-    # Use specific images only for "The Tale of Peter Rabbit"
-
-    if book.title == "The Tale of Peter Rabbit"
-      page_image = "Peter P#{i + 1}.jpg"
+    page_image = if book.title == "Peter's Bizarre Adventures"
+      "Peter P#{i + 1}.jpg"
     else
-      page_image = image_file
+      image_file
     end
-
 
     image_path = Rails.root.join("app/assets/images", page_image)
 
@@ -76,13 +80,6 @@ book_data.each do |attrs|
       puts "⚠️ Image '#{page_image}' not found for Page #{page.page_number} of '#{book.title}'"
     end
   end
-
-    file_path = Rails.root.join("app/assets/images", page_image)
-    file = File.open(file_path)
-    page.photo.attach(io: file, filename: page_image, content_type: "image/jpeg")
-  end
-
-
 end
 
 puts "👤 Creating a test user..."
