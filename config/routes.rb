@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users                          # Move this ABOVE
+  resources :users, only: [:show]           # Move this BELOW
+
   resources :books, only: [:index, :show] do
     resources :pages, only: [:show], param: :page_number
+    resources :favorites, only: [:create]
   end
-  resources :users, only: [:show]
-  devise_for :users
+
   root to: "books#index"
+
+  resources :favorites, only: [:index, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
