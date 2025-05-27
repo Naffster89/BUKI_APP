@@ -56,10 +56,19 @@ book_data.each do |attrs|
       page_number: i + 1
     )
 
-    # Reuse the same image for simplicity (you can change this logic per page)
-    file = File.open(Rails.root.join("app/assets/images/#{image_file}"))
-    page.photo.attach(io: file, filename: "page_#{i + 1}_#{image_file}", content_type: "image/jpeg")
+    # Use specific images only for "The Tale of Peter Rabbit"
+    if book.title == "The Tale of Peter Rabbit"
+      page_image = "Peter P#{i + 1}.jpg"
+    else
+      page_image = image_file
+    end
+
+    file_path = Rails.root.join("app/assets/images", page_image)
+    file = File.open(file_path)
+    page.photo.attach(io: file, filename: page_image, content_type: "image/jpeg")
   end
+
+
 end
 
 puts "👤 Creating a test user..."
