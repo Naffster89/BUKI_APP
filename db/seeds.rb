@@ -53,8 +53,11 @@ puts "👤 Creating a test user..."
 
 user = User.create!(
   email: "test@test.com",
-  password: "123123",
-  password_confirmation: "123123"
+  encrypted_password: "123123",
+  password_confirmation: "123123",
+  first_name: "Natherniel",
+  last_name: "Smith",
+  username: "Naffster",
 )
 
 puts "🌱 Done seeding!"
