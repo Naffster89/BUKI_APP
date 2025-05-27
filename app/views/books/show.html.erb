@@ -24,16 +24,16 @@
 
   <div style="margin-bottom: 24px;">
     <strong>Select Languages:</strong>
+    <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
     <button style="background-color: #4f7dfd; color: white; border: none; padding: 8px 16px; border-radius: 24px; margin: 0 8px;">English</button>
     <button style="background-color: transparent; border: none; padding: 8px 16px;">Spanish</button>
     <span style="margin: 0 16px;">|</span>
-    <button style="border: 1px solid #ccc; border-radius: 24px; padding: 8px 16px; background: white;">
-      Add to library ❤️
-    </button>
+    <%= render "favorites/create", book: @book %>
+    </div>
   </div>
 
   <%= link_to "Open book ▶", book_page_path(@book, 1), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
 
-  <%= render "favorites/create", book: @book %>
+
 
 </div>

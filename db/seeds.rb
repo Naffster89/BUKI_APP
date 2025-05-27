@@ -55,12 +55,16 @@ book_data.each do |attrs|
       page_number: i + 1
     )
 
+
     # Use special images for Peter Rabbit
+    # Use specific images only for "The Tale of Peter Rabbit"
+
     if book.title == "The Tale of Peter Rabbit"
       page_image = "Peter P#{i + 1}.jpg"
     else
       page_image = image_file
     end
+
 
     image_path = Rails.root.join("app/assets/images", page_image)
 
@@ -72,6 +76,12 @@ book_data.each do |attrs|
       puts "⚠️ Image '#{page_image}' not found for Page #{page.page_number} of '#{book.title}'"
     end
   end
+
+    file_path = Rails.root.join("app/assets/images", page_image)
+    file = File.open(file_path)
+    page.photo.attach(io: file, filename: page_image, content_type: "image/jpeg")
+  end
+
 
 end
 
