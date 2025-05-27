@@ -1,0 +1,17 @@
+<%= form_with url: book_page_path(@book, 1), method: :get html: { class: 'input-group' } do %>
+  <fieldset class="form-group check_boxes optional snippet_tags">
+  <legend class="col-form-label pt-0">Select Languages</legend>
+  <input type="hidden" name="languages[]" value="">
+  <% current_user.languages.each_with_index do |language, index| %>
+    <div class="tag-item">
+      <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
+      <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language %></label>
+    </div>
+  <% end %>
+</fieldset>
+   <div class="input-group-append">
+    <button class="btn btn-outline-primary" type="submit">
+      Open Book
+    </button>
+  </div>
+<% end %>
