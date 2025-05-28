@@ -56,6 +56,7 @@ gem 'cloudinary'
 gem 'activestorage-cloudinary-service'
 gem "pg_search"
 gem 'deepl-rb', require: 'deepl'
+gem 'countries', require: 'countries/global'
 
 
 

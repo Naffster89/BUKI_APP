@@ -7,32 +7,43 @@
     <h1 style="display: inline-block; margin-left: 12px;"><%= @book.title %></h1>
     <h2 style="color: grey; font-weight: 400;">By <%= @book.author %></h2>
   </div>
-  <div style="text-align: center; padding: 16px; border: 1px solid #ccc; border-radius: 12px; margin-bottom: 24px;">
-    <% if @book.cover_image.attached? %>
-      <%= image_tag @book.cover_image, alt: @book.title, style: "max-width: 100%; height: 350px; object-fit: contain;" %>
-    <% else %>
-      <p>No cover image available.</p>
-    <% end %>
-  </div>
-  <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-    <%= @book.description %>
-  </p>
-  <%= form_with url: book_page_path(@book, 1), method: :get, html: { class: 'input-group' } do %>
-    <fieldset class="form-group check_boxes optional snippet_tags">
-      <legend class="col-form-label pt-0">Select Languages</legend>
-      <% current_user.languages.each_with_index do |language, index| %>
-        <div class="tag-item">
-          <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
-          <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language %></label>
-        </div>
-      <% end %>
-    </fieldset>
-    <div class="input-group-append">
-      <button class="btn btn-outline-primary" type="submit">
-        Open Book
-      </button>
+
+  <div class="row">
+    <div class="col-5">
+      <div style="text-align: center; padding: 16px; border: 1px solid #ccc; border-radius: 12px; margin-bottom: 24px;">
+        <% if @book.cover_image.attached? %>
+          <%= image_tag @book.cover_image, alt: @book.title, style: "max-width: 100%; height: 350px; object-fit: contain;" %>
+        <% else %>
+          <p>No cover image available.</p>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-  <%#= link_to "Open book ▶", book_page_path(@book, page_number: 1, language: params[:language_code]), style: "background-color: #ddd; border-radius: 8px; padding: 8px 16px; text-decoration: none; color: black; display: inline-block;" %>
+    <div class="col-7 flex-column justify-content-between align-items-center">
+      <div>
+        <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
+          <%= @book.description %>
+        </p>
+
+        <%= form_with url: book_page_path(@book, 1), method: :get, html: { class: 'w-100' } do %>
+          <fieldset class="form-group check_boxes optional snippet_tags">
+            <legend class="col-form-label pt-0">Select Languages</legend>
+
+            <% current_user.languages.each_with_index do |language, index| %>
+              <div class="tag-item">
+                <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
+                <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= full_name(language) %></label>
+              </div>
+            <% end %>
+
+            <%= button_tag "Add to library ❤️", type: "button", style: "height: 40px; border: 1px solid #ccc; border-radius: 24px; background: white;"%>
+          </fieldset>
+
+          <div class="mt-5">
+            <%= submit_tag "Open Book ➤", class: "btn btn-primary text-white" %>
+          </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
-<%# <%= button_tag "Add to library ❤️", type: "button", style: "height: 40px; border: 1px solid #ccc; border-radius: 24px; background: white;" %>
