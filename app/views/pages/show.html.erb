@@ -1,42 +1,57 @@
-<div>
-  <% if @page.photo.attached? %>
-    <div class="mb-3 text-center">
-      <%= image_tag url_for(@page.photo), style: "max-width: 800px; max-height: 600px; width: auto; height: auto;" %>
-    </div>
-  <% end %>
+<div class="container my-5" style="max-width: 900px;">
+  <!-- Hardcoded Book Page Text -->
+  <h2 class="mb-4" style="font-size: 1.5rem; line-height: 1.6;">
+    <%= @page.text["en"] %>
+  </h2>
 
-  <strong>Selected Languages:</strong>
 
-  <% if @languages.present? %>
-    <% @languages.each_with_index do |language, index| %>
-      <div>
-        <input type="checkbox" checked disabled id="<%= language %>-<%= index %>">
-        <label for="<%= language %>-<%= index %>"><%= language %></label>
-      </div>
-    <% end %>
-  <% else %>
-    <p>No languages selected.</p>
-  <% end %>
-</div>
-
-<div style="margin-top: 16px;">
-  <%= link_to "Return to Book", book_path(@book) %>
-</div>
-
-<div class="d-flex justify-content-between align-items-center mt-3">
-  <div style="width: 120px;">
+  <!-- Image with Left/Right Arrows -->
+  <div class="d-flex justify-content-center align-items-center mb-4" style="gap: 24px;">
     <% if @page_number > 1 %>
-      <%= link_to "← Previous", book_page_path(@book, @page_number - 1), method: :get, class: "btn btn-outline-secondary" %>
+      <%= link_to "←", book_page_path(@book, @page_number - 1),
+            class: "btn btn-outline-secondary", style: "width: 80px;" %>
+    <% else %>
+      <div style="width: 80px;"></div>
+    <% end %>
+
+    <% if @page.photo.attached? %>
+      <%= image_tag url_for(@page.photo),
+            class: "img-fluid",
+            style: "max-height: 400px; object-fit: contain;" %>
+    <% else %>
+      <p>No image available.</p>
+    <% end %>
+
+    <% if @page_number < @total_pages %>
+      <%= link_to "→", book_page_path(@book, @page_number + 1),
+            class: "btn btn-outline-secondary", style: "width: 80px;" %>
+    <% else %>
+      <div style="width: 80px;"></div>
     <% end %>
   </div>
 
-  <div>
+  <!-- Page Count -->
+  <div class="text-center mb-4">
     Page <%= @page_number %> of <%= @total_pages %>
   </div>
 
-  <div style="width: 120px; text-align: right;">
-    <% if @page_number < @total_pages %>
-      <%= link_to "Next →", book_page_path(@book, @page_number + 1), method: :get, class: "btn btn-outline-secondary" %>
+  <!-- Language Badges -->
+  <div class="mb-4">
+    <strong>Selected Languages:</strong><br>
+    <% if @languages.present? %>
+      <% @languages.each_with_index do |language, index| %>
+        <span class="badge rounded-pill bg-light border text-dark me-2">
+          <%= language.upcase %>
+        </span>
+      <% end %>
+    <% else %>
+      <p>No languages selected.</p>
     <% end %>
+  </div>
+
+  <!-- Return Button -->
+  <div class="text-center">
+    <%= link_to "Return to Book", book_path(@book),
+          class: "btn btn-outline-primary" %>
   </div>
 </div>
