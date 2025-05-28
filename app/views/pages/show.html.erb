@@ -7,8 +7,8 @@
 
   <strong>Selected Languages:</strong>
 
-  <% if current_user.languages.present? %>
-    <% current_user.languages.each_with_index do |language, index| %>
+  <% if @languages.present? %>
+    <% @languages.each_with_index do |language, index| %>
       <div>
         <input type="checkbox" checked disabled id="<%= language %>-<%= index %>">
         <label for="<%= language %>-<%= index %>"><%= language %></label>
