@@ -64,11 +64,11 @@ book_data.each do |attrs|
     )
 
     # Use special images for Peter Rabbit
-    page_image = if book.title == "Peter's Bizarre Adventures"
-      "Peter P#{i + 1}.jpg"
-    else
-      image_file
-    end
+    page_image =  if book.title == "Peter's Bizarre Adventures"
+                    "Peter P#{i + 1}.jpg"
+                  else
+                    image_file
+                  end
 
     image_path = Rails.root.join("app/assets/images", page_image)
 
