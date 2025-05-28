@@ -1,2 +1,20 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div style="text-align: center; margin-top: 50px;">
+  <%= image_tag "avatar.png", size: "100x100", style: "border-radius: 50%;" %>
+  <h1>Kodomo Junior</h1>
+</div>
+
+<div class="user_form">
+  <%= simple_form_for current_user do |f| %>
+    <%= f.input :username %>
+    <%= f.input :languages,
+      collection: DeepL.languages.map { |lang| [lang.code, lang.name.capitalize] },
+      label_method: :second,
+      value_method: :first,
+      input_html: {
+      multiple: true,
+      style: "height: 300px; padding: 8px;"
+      }
+    %>
+    <%= f.submit class: "btn btn-primary custom-button" %>
+  <% end %>
+</div>
