@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users, only: [:show]
+  resources :users, only: [:show, :update]
 
   root to: "books#index"
 
@@ -11,4 +11,3 @@ Rails.application.routes.draw do
 
   resources :favorites, only: [:index, :destroy]
 end
-
