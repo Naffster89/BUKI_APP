@@ -20,7 +20,6 @@ class PagesController < ApplicationController
     @page.text ||= {}
 
     @languages.each do |language|
-
       if @page.text[language].blank? && @page.text["en"].present?
         TranslateService.new(@page, @page.text["en"], language).call
         @page.reload

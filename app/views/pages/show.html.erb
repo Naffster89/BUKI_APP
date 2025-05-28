@@ -1,19 +1,20 @@
 <div class="container my-5" style="max-width: 900px;">
   <!-- Hardcoded Book Page Text -->
-  <h2 class="mb-4" style="font-size: 1.5rem; line-height: 1.6;">
-    <%= @page.text["en"] %>
-  </h2>
-
-
+  <div class="text-center">
+    <% @languages.each do |language| %>
+      <h2 class="mb-4" style="font-size: 1.5rem; line-height: 1.6;">
+        <%= @page.text[language] %>
+      </h2>
+    <% end %>
+  </div>
   <!-- Image with Left/Right Arrows -->
   <div class="d-flex justify-content-center align-items-center mb-4" style="gap: 24px;">
     <% if @page_number > 1 %>
-      <%= link_to "←", book_page_path(@book, @page_number - 1),
+      <%= link_to "←", book_page_path(@book, @page_number - 1, languages: params[:languages]),
             class: "btn btn-outline-secondary", style: "width: 80px;" %>
     <% else %>
       <div style="width: 80px;"></div>
     <% end %>
-
     <% if @page.photo.attached? %>
       <%= image_tag url_for(@page.photo),
             class: "img-fluid",
@@ -21,20 +22,17 @@
     <% else %>
       <p>No image available.</p>
     <% end %>
-
     <% if @page_number < @total_pages %>
-      <%= link_to "→", book_page_path(@book, @page_number + 1),
+      <%= link_to "→", book_page_path(@book, @page_number + 1, languages: params[:languages]),
             class: "btn btn-outline-secondary", style: "width: 80px;" %>
     <% else %>
       <div style="width: 80px;"></div>
     <% end %>
   </div>
-
   <!-- Page Count -->
   <div class="text-center mb-4">
     Page <%= @page_number %> of <%= @total_pages %>
   </div>
-
   <!-- Language Badges -->
   <div class="mb-4">
     <strong>Selected Languages:</strong><br>
@@ -48,7 +46,6 @@
       <p>No languages selected.</p>
     <% end %>
   </div>
-
   <!-- Return Button -->
   <div class="text-center">
     <%= link_to "Return to Book", book_path(@book),
