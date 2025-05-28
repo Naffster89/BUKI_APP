@@ -46,6 +46,41 @@ book_data = [
   }
 ]
 
+real_pages = {
+  "Peter's Bizarre Adventures" => [
+    "Peter woke up in a marshmallow forest, unsure how he got there.",
+    "A talking fish offered him a ride on a jellybean submarine.",
+    "The sky turned purple and rained custard as Peter floated by.",
+    "A crab wearing sunglasses handed Peter a mysterious envelope.",
+    "Inside was a map of a hidden donut planet.",
+    "Peter followed the trail of sprinkles left by flying squirrels.",
+    "He tripped over a disco ball and fell into a time portal.",
+    "Back in time, he saw himself eating a taco with a unicorn.",
+    "Peter asked his past self how to get home, but only got riddles.",
+    "A grumpy owl offered Peter a lift on his air-scooter.",
+    "They crashed into a cheese fountain guarded by marshmallow men.",
+    "Peter used the envelope as a parachute to escape the chaos.",
+    "A portal opened above a pie mountain and sucked him in.",
+    "He woke up in bed, unsure if it was all a dream—until he coughed up glitter."
+  ],
+  "The Tale of Peter Rabbit" => [
+    "Once upon a time there were four little Rabbits, and their names were—Flopsy, Mopsy, Cotton-tail, and Peter.",
+    "They lived with their mother in a sand-bank, underneath the root of a very big fir-tree.",
+    "'Now, my dears,' said old Mrs. Rabbit one morning, 'you may go into the fields or down the lane, but don't go into Mr. McGregor's garden.'",
+    "Flopsy, Mopsy, and Cotton-tail, who were good little bunnies, went down the lane to gather blackberries.",
+    "But Peter, who was very naughty, ran straight away to Mr. McGregor's garden and squeezed under the gate!",
+    "First he ate some lettuces and some French beans; and then he ate some radishes.",
+    "But round the end of a cucumber frame, whom should he meet but Mr. McGregor!",
+    "Mr. McGregor jumped up and ran after Peter, waving a rake and calling out, 'Stop thief!'",
+    "Peter was most dreadfully frightened; he rushed all over the garden, for he had forgotten the way back to the gate.",
+    "He lost one of his shoes among the cabbages, and the other shoe amongst the potatoes.",
+    "After losing them, he ran on four legs and went faster, so that he might have gotten away altogether.",
+    "But unfortunately, he ran into a gooseberry net, and got caught by the large buttons on his jacket.",
+    "Peter gave himself up for lost, and shed big tears; but his sobs were overheard by some friendly sparrows.",
+    "They implored him to exert himself, and he wriggled out just in time, leaving his jacket behind him."
+  ]
+}
+
 book_data.each do |attrs|
   image_file = attrs.delete(:cover_image)
   book = Book.create!(attrs)
@@ -55,23 +90,24 @@ book_data.each do |attrs|
   file = File.open(Rails.root.join("app/assets/images/#{image_file}"))
   book.cover_image.attach(io: file, filename: image_file, content_type: "image/jpeg")
 
-  # Create 5 pages per book
-  5.times do |i|
+  # Select either 14 real or 5 placeholder pages
+  pages = real_pages[book.title] || Array.new(5) { |i| "This is page #{i + 1} of #{book.title}." }
+
+  pages.each_with_index do |text, i|
     page = Page.create!(
       book: book,
-      text: {en: "This is page #{i + 1} of #{book.title}."},
+      text: { en: text },
       page_number: i + 1
     )
 
-    # Use special images for Peter Rabbit
-    page_image =  if book.title == "Peter's Bizarre Adventures"
-                    "Peter P#{i + 1}.jpg"
-                  else
-                    image_file
-                  end
+    # Choose image for page
+    page_image = if book.title == "Peter's Bizarre Adventures"
+                   "PBA P#{i + 1}.jpg"
+                 else
+                   image_file
+                 end
 
     image_path = Rails.root.join("app/assets/images", page_image)
-
     if File.exist?(image_path)
       file = File.open(image_path)
       page.photo.attach(io: file, filename: page_image, content_type: "image/jpeg")
@@ -90,7 +126,8 @@ User.create!(
   password_confirmation: "123123",
   first_name: "Test",
   last_name: "Tester",
-  username: "Testery"
+  username: "Testery",
+  languages: ["EN", "JA", "ES"]
 )
 
 puts "🌱 Done seeding!"
