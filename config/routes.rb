@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root to: "books#index"
 
-  resources :books, only: [:index, :show, :update] do
+  resources :books, only: [:index, :show, :update, :new, :create] do
     resources :pages, only: [:show], param: :page_number
     resources :favorites, only: [:create]
   end
