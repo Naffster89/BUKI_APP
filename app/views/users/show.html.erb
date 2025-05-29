@@ -10,6 +10,7 @@
       collection: DeepL.languages.map { |lang| [lang.code, lang.name.capitalize] },
       label_method: :second,
       value_method: :first,
+      include_blank: false,
       input_html: {
       multiple: true,
       style: "height: 300px; padding: 8px;"
