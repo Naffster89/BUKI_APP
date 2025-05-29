@@ -32,7 +32,7 @@ class BooksController < ApplicationController
     @book = Book.new(title: title, content: content)
 
     if @book.save
-      redirect_to @book, notice: "Your AI-generated book has been created!"
+      redirect_to @book, notice: "Your book has been created!"
     else
       flash.now[:alert] = "Something went wrong. Please try again."
       render :new
