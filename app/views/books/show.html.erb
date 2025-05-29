@@ -35,7 +35,7 @@
               </div>
             <% end %>
 
-            <%= button_tag "Add to library ❤️", type: "button", style: "height: 40px; border: 1px solid #ccc; border-radius: 24px; background: white;"%>
+            <%= render "favorites/create", book: @book %>
           </fieldset>
 
           <div class="mt-5">
