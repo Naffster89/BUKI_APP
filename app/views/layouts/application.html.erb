@@ -9,11 +9,15 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
-   <%= render "shared/topbar" %>
+    <% unless controller_name == 'pages' && action_name == 'show' %>
+      <%= render "shared/topbar" %>
+    <% end %>
     <%= render "shared/flashes" %>
     <div class="content" style="margin-top: 80px; padding-bottom: 120px;">
       <%= yield %>
     </div>
-    <%= render "shared/navbar" %>
+    <% unless controller_name == 'pages' && action_name == 'show' %>
+      <%= render "shared/navbar" %>
+    <% end %>
   </body>
 </html>
