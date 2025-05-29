@@ -10,8 +10,12 @@
   <!-- Image with Left/Right Arrows -->
   <div class="d-flex justify-content-center align-items-center mb-4" style="gap: 24px;">
     <% if @page_number > 1 %>
-      <%= link_to "←", book_page_path(@book, @page_number - 1, languages: params[:languages]),
-            class: "btn btn-outline-secondary", style: "width: 80px;" %>
+
+      <%= link_to book_page_path(@book, @page_number - 1),
+            class: "arrow-button", style: "width: 80px;" do %>
+            <i class="fa-solid fa-arrow-left"></i>
+      <% end %>
+
     <% else %>
       <div style="width: 80px;"></div>
     <% end %>
@@ -23,8 +27,12 @@
       <p>No image available.</p>
     <% end %>
     <% if @page_number < @total_pages %>
-      <%= link_to "→", book_page_path(@book, @page_number + 1, languages: params[:languages]),
-            class: "btn btn-outline-secondary", style: "width: 80px;" %>
+
+      <%= link_to book_page_path(@book, @page_number + 1),
+            class: "arrow-button", style: "width: 80px;" do %>
+            <i class="fa-solid fa-arrow-right"></i>
+      <% end %>
+
     <% else %>
       <div style="width: 80px;"></div>
     <% end %>
