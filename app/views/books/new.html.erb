@@ -1,0 +1,10 @@
+<h1>Create Your Own Book</h1>
+
+<%= form_with url: books_path, method: :post, local: true do %>
+  <div class="form-group mb-3">
+    <%= label_tag :prompt, "Enter your story prompt" %>
+    <%= text_field_tag :prompt, nil, class: "form-control", placeholder: "e.g. A hedgehog who builds a spaceship" %>
+  </div>
+
+  <%= submit_tag "Generate Book", class: "btn btn-primary" %>
+<% end %>

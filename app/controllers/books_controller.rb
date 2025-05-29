@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-    skip_before_action :authenticate_user!, only: [ :index, :show ]
+  skip_before_action :authenticate_user!, only: [:index, :show, :new, :create]
+
   def index
     if params[:query].present?
       @books = Book.search_by_title_and_description(params[:query])
@@ -18,6 +19,23 @@ class BooksController < ApplicationController
       redirect_to @book, notice: "Book updated!"
     else
       render :show
+    end
+  end
+
+  def new
+  end
+
+  def create
+    prompt = params[:prompt]
+    title = "The Adventures of #{prompt.split.first.capitalize}"
+    content = "Once upon a time, #{prompt}..."
+    @book = Book.new(title: title, content: content)
+
+    if @book.save
+      redirect_to @book, notice: "Your AI-generated book has been created!"
+    else
+      flash.now[:alert] = "Something went wrong. Please try again."
+      render :new
     end
   end
 
