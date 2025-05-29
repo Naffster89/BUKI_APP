@@ -1,14 +1,13 @@
 <div id="favorite-<%= book.id %>">
-  <% if current_user && current_user.favorited?(@book) %>
+  <% if current_user && current_user.favorited?(book) %>
   <!-- Copied style for button from books/show -->
     <%= link_to favorite_path(book),  style: "color: inherit; text-decoration: none; border: 1px solid #ccc; border-radius: 24px; padding: 8px 16px; background: white;", data: {turbo_method: :delete} do %>
       Favorited <i class="fa-solid fa-heart text-danger"></i>
     <% end %>
   <% else %>
-    <%= simple_form_for [book, Favorite.new] do |f| %>
-      <%= f.button :button, style: "border: 1px solid #ccc; border-radius: 24px; padding: 8px 16px; background: white" do %>
+
+    <%= link_to book_favorites_path(book), data: {turbo_method: :post}, style: "color: inherit; text-decoration: none; border: 1px solid #ccc; border-radius: 24px; padding: 8px 16px; background: white;" do %>
         Add to Favorites <i class="fa-regular fa-heart text-danger"></i>
-      <% end %>
     <% end %>
   <% end %>
 </div>
