@@ -1,10 +1,11 @@
-<h1>Create Your Own Book</h1>
+<h1 class="text-center mb-4">Create Your Own Book</h1>
 
-<%= form_with url: books_path, method: :post, local: true do %>
-  <div class="form-group mb-3">
-    <%= label_tag :prompt, "Enter your story prompt" %>
-    <%= text_field_tag :prompt, nil, class: "form-control", placeholder: "e.g. A hedgehog who builds a spaceship" %>
+<!-- Form gets replaced here -->
+<div id="new_book_form">
+  <div id="form_area">
+    <%= render "form", book: @book %>
   </div>
+</div>
 
-  <%= submit_tag "Generate Book", class: "btn btn-primary" %>
-<% end %>
+<!-- Book card gets appended here -->
+<div id="books-list" class="row mt-5"></div>

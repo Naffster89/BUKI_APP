@@ -1,0 +1,25 @@
+<%= form_with model: @book, url: books_path do |f| %>
+  <p>
+    <%= label_tag :character, "Main character" %><br>
+    <%= text_field_tag :character, params[:character] %>
+  </p>
+
+  <p>
+    <%= label_tag :action, "What is the character doing?" %><br>
+    <%= text_field_tag :action, params[:action] %>
+  </p>
+
+  <p>
+    <%= label_tag :location, "Story setting" %><br>
+    <%= text_field_tag :location, params[:location] %>
+  </p>
+
+  <p>
+    <%= label_tag :page_count, "Number of pages" %><br>
+    <%= number_field_tag :page_count, params[:page_count] || 5, min: 5 %>
+  </p>
+
+  <p>
+    <%= submit_tag "Generate Book" %>
+  </p>
+<% end %>
