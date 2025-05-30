@@ -7,6 +7,7 @@ class PagesController < ApplicationController
   def show
 
     @book = Book.find(params[:book_id])
+    @pages = @book.pages.includes(photo_attachment: :blob)
     @page_number = params[:page_number].to_i
     @page = @book.pages.find_by(page_number: @page_number)
 
@@ -27,6 +28,5 @@ class PagesController < ApplicationController
       @translated_text = @page.text[language] || @page.text["en"]
     end
     @page.save
-
   end
 end
