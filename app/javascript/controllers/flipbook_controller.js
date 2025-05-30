@@ -6,9 +6,9 @@ export default class extends Controller {
   connect() {
     console.log(window.screen.width);
     console.log(window.screen.height);
-    
+
     this.pageFlip = new St.PageFlip(this.containerTarget, {
-      width: window.screen.width,
+      width: window.screen.width - 50,
       height: window.screen.height,
       size: "stretch",
       maxShadowOpacity: 0.5,
