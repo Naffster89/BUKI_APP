@@ -1,4 +1,5 @@
 require "open-uri"
+require 'csv'
 
 puts "🌱 Seeding database..."
 
@@ -117,6 +118,59 @@ book_data.each do |attrs|
     end
   end
 end
+
+# Create more books, images from Cloudinary and text from another file (csv)
+puts "📚 Creating more books..."
+
+# Kaho's Google Spreadsheet URL for book data
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTyQJYghIl3iILrQ0Ss4xQL_BGK_3-Z8uabPv2_1e0WTdJER_h_QV-Y86D8A8Mr10O7Ky2pN85IPRMs/pub?gid=0&single=true&output=csv"
+csv_data = URI.open(CSV_URL).read
+books_csv = CSV.parse(csv_data, headers: true)
+
+books_csv.each do |row|
+  title = row["Title"]
+  author = row["Author"]
+  description = row["Description"]
+  language = row["Language"]
+  cover_url = row["CoverImageURL"]
+
+  book = Book.create!(
+    title: title,
+    author: author,
+    description: description,
+    language: language,
+  )
+  puts "✅ Created book: #{title}"
+
+# Attach cover from Cloudinary
+  file = URI.open(cover_url)
+  book.cover_image.attach(io: file, filename: File.basename(cover_url), content_type: "image/jpeg")
+
+  # Add page texts and images
+  row.headers.select { |h| h.match?(/\d+$/) }.each do |page_column|
+  page_number = page_column[/\d+/].to_i
+  text = row[page_column]
+  next unless text.present?
+
+    page = Page.create!(
+      book: book,
+      text: { en: text },
+      page_number: page_number
+    )
+
+    # Example of attaching an image if your naming matches (e.g. "book_title_P1.jpg")
+   image_column = "#{page_number}ImageURL"
+    if row[image_column].present?
+      page_image_url = row[image_column]
+      file = URI.open(page_image_url)
+      page.photo.attach(io: file, filename: File.basename(page_image_url), content_type: "image/jpeg")
+      puts "🖼️ Attached Cloudinary image to Page #{page_number} of '#{book.title}'"
+    else
+      puts "⚠️ No image URL for Page #{page_number} of '#{book.title}'"
+    end
+  end
+end
+
 
 puts "👤 Creating a test user..."
 
