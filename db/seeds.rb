@@ -44,6 +44,41 @@ book_data = [
     description: "An aging nobleman sets out to revive chivalry, battling imaginary enemies...",
     language: "Spanish",
     cover_image: "Don Quixote.jpg"
+  },
+  {
+    title: "About Bunnies",
+    author: "Gladys Nelson Muter",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "bunnies01.jpg"
+  },
+  {
+    title: "The Adventures of Squirrel Fluffytail",
+    author: "Dolores McKenna",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "01_Adventures_Squirrel_Fluffytail.jpg"
+  },
+    {
+    title: "Adventures of the Teenie Weenies",
+    author: "Wm.  Donahey",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "01_Adventures_of_the_Teenie_Weenies.jpg"
+  },
+    {
+    title: "Aesop's Fables Book 1",
+    author: "",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "01_Aesops_Fables_Bk1.jpg"
+  },
+    {
+    title: "De Avonturen Van Kleinen Piet",
+    author: "J.J.A. Goevernor",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "01_de_avonturen_va_klienen_piet.jpg"
   }
 ]
 
