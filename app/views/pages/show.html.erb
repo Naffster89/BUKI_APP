@@ -1,9 +1,15 @@
 <div class="h-100">
   <!-- Hardcoded Book Page Text -->
-
-  <div data-controller="flipbook" class="h-100" style="background-image: url('<%= asset_path("pages-bg.jpg") %>'); background-size: cover;
+  <div style="background-image: url('<%= asset_path("pages-bg.jpg") %>'); background-size: cover;
               background-repeat: no-repeat;
-              background-position: center;">
+              width: 100vw;
+              height: 100vh;
+              position: fixed;
+              top: 0;
+              left: 0;
+              z-index: -1;
+              background-position: center;"></div>
+  <div data-controller="flipbook" class="h-100">
     <!-- All pages must be children of this container! -->
     <div data-flipbook-target="container" class="pageflip-container">
       <% @pages.each_with_index do |page, index| %>
@@ -28,8 +34,20 @@
     </div>
     <!-- Buttons -->
     <div class="container-fluid d-flex justify-content-between px-4 my-5">
-      <button data-action="flipbook#previous" class="rounded-pill btn btn-outline-primary"> &lt;&lt; Previous page</button>
-      <button data-action="flipbook#next" class="rounded-pill btn btn-outline-primary">Next page &gt;&gt;</button>
+      <button data-action="flipbook#previous"
+          class="rounded-pill btn btn-outline-primary bg-white"
+          onmousedown="this.classList.remove('bg-white')"
+          onmouseup="this.classList.add('bg-white')"
+          onmouseleave="this.classList.add('bg-white')">
+        &lt;&lt; Previous page
+      </button>
+      <button data-action="flipbook#next"
+          class="rounded-pill btn btn-outline-primary bg-white"
+          onmousedown="this.classList.remove('bg-white')"
+          onmouseup="this.classList.add('bg-white')"
+          onmouseleave="this.classList.add('bg-white')">
+        Next page &gt;&gt;
+      </button>
     </div>
   </div>
   <!-- Language Badges -->
