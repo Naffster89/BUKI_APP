@@ -1,27 +1,28 @@
-<div class="container my-10">
-  <div style="background-color: #e3f2fd; padding: 2rem; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-    <h1 class="centered-text">Welcome to BUKI APP! </h1>
-    <h3 class="centered-text">Select your favorite languages and manage your favorite books by creating an account. </h3>
-    <div class="d-flex justify-content-center my-4">
-      <button class="btn btn-primary custom-button">Create an account</button>
-    </div>
+<div style="display: flex; flex-direction: row; align-items: center; background-image: url(<%= asset_path('background.jpg') %>); background-size: cover; background-position: center; padding: 40px 10%; ">
+  <div style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
+    <h1 class="centered-text" style="color: white; font-family: 'Mooli'; font-size: 50px;">Pick a Language, Open a Storybook! </h1>
+    <h3 class="centered-text" style="color: white;" >With Buki, you can explore a world of children's books in the language you love. Choose, read, and discover — all in one place. </h3>
+    <%= form_with url: books_path, method: :get, class: "d-flex" do %>
+      <%= text_field_tag :query, params[:query], class: "form-control rounded-pill", placeholder: "Search a book title", style: "background-color: white; color: black; border-radius: 50px;" %>
+      <button type="submit" class="btn ms-2" style="background-color: #FFD600; border-radius: 50px; color: black; border: none;">
+      <i class="fa fa-search"></i>
+      </button>
+    <% end %>
   </div>
-
+  <div style="flex: 1; display: flex; justify-content: center;">
+    <%= image_tag "ipadkid.png", alt: "text", style: "width: 80%; height: auto;" %>
+  </div>
+</div>
+<%# Main banner section with welcome message, search form, and image %>
+<div class="container my-10 w-100">
   <div class="row justify-content-center">
     <div class="col-sm-12 my-3">
-      <%= form_with url: books_path, method: :get, class: "d-flex" do %>
-        <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Search your book" %>
-        <%= submit_tag "Search", name: "", class: "btn btn-primary ms-2" %>
-      <% end %>
     </div>
   </div>
-
   <div class="d-flex justify-content-end mb-4">
     <%= link_to "Create Your Own Book", new_book_path, class: "btn btn-success" %>
   </div>
-
-  <h1>Collection</h1>
-
+  <h1 style="margin-bottom: 24px;">Browse our Collection of Children's Picture Books</h1>
   <div class="row g-4">
     <% @books.each do |book| %>
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center">
