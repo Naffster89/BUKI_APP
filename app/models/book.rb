@@ -8,9 +8,9 @@ class Book < ApplicationRecord
   include PgSearch::Model
 
   pg_search_scope :search_by_title_and_description,
-    against: [ :title, :description ],
+    against: [ :title, :description, :author],
     using: {
     tsearch: { prefix: true }
   }
-  
+
 end

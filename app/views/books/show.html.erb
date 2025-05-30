@@ -1,14 +1,17 @@
-<!-- app/views/books/show.html.erb -->
 <div class="book-container" style="max-width: 1200px; margin: 0 auto; padding: 24px; font-family: sans-serif;">
+  <!-- Back Link and Book Title -->
   <div style="margin-bottom: 24px;">
     <%= link_to books_path, style: "text-decoration: none; font-size: 36px; color: black;" do %>
       &lt;
     <% end %>
     <h1 style="display: inline-block; margin-left: 12px;"><%= @book.title %></h1>
-    <h2 style="color: grey; font-weight: 400;">By <%= @book.author %></h2>
+    <% if @book.author.present? %>
+      <h2 style="color: grey; font-weight: 400;">By <%= @book.author %></h2>
+    <% end %>
   </div>
 
   <div class="row">
+    <!-- Cover Image Column -->
     <div class="col-5">
       <div style="text-align: center; padding: 16px; border: 1px solid #ccc; border-radius: 12px; margin-bottom: 24px;">
         <% if @book.cover_image.attached? %>
@@ -18,30 +21,36 @@
         <% end %>
       </div>
     </div>
-    <div class="col-7 flex-column justify-content-between align-items-center">
-      <div>
-        <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-          <%= @book.description %>
-        </p>
 
+    <!-- Book Info & Form Column -->
+    <div class="col-7 d-flex flex-column justify-content-between">
+      <div>
+        <% if @book.description.present? %>
+          <p style="font-size: 16px; line-height: 1.6; margin-bottom: 24px; white-space: pre-wrap;">
+            <%= @book.description %>
+          </p>
+        <% end %>
+
+        <!-- Open Book Form -->
         <%= form_with url: book_page_path(@book, 1), method: :get, html: { class: 'w-100' } do %>
-          <fieldset class="form-group check_boxes optional snippet_tags">
+          <fieldset class="form-group">
             <legend class="col-form-label pt-0">Select Languages</legend>
 
             <% current_user.languages.each_with_index do |language, index| %>
-              <div class="tag-item">
-                <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
-                <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= full_name(language) %></label>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language.parameterize %>-<%= index %>">
+                <label class="form-check-label" for="<%= language.parameterize %>-<%= index %>"><%= full_name(language) %></label>
               </div>
             <% end %>
-
-            <%= render "favorites/create", book: @book %>
           </fieldset>
 
+          <!-- Favorites Partial -->
+          <%= render "favorites/create", book: @book %>
+
+          <!-- Submit Button -->
           <div class="mt-5">
             <%= submit_tag "Open Book ➤", class: "btn btn-primary text-white" %>
           </div>
-
         <% end %>
       </div>
     </div>

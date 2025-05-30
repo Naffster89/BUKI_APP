@@ -1,0 +1,7 @@
+<%= turbo_stream.append "books-list" do %>
+  <%= render partial: "books/book", locals: { book: @book } %>
+<% end %>
+
+<%= turbo_stream.replace "new_book_form" do %>
+  <%= render partial: "books/success_message", locals: { book: @book } %>
+<% end %>
