@@ -1,12 +1,14 @@
-<div style="text-align: center; margin-top: 50px;">
-  <%= image_tag "avatar.png", size: "100x100", style: "border-radius: 50%;" %>
-  <h1>Kodomo Junior</h1>
-</div>
-
-<div class="user_form">
-  <%= simple_form_for current_user do |f| %>
-    <%= f.input :username %>
-    <%= f.input :languages,
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+      <div style="text-align: center; margin-top: 50px;">
+        <%= image_tag "avatar.png", size: "100x100", style: "border-radius: 50%;" %>
+        <h1>Kodomo Junior</h1>
+      </div>
+      <div class="user_form">
+        <%= simple_form_for current_user do |f| %>
+          <%= f.input :username %>
+          <%= f.input :languages,
       collection: DeepL.languages.map { |lang| [lang.code, lang.name.capitalize] },
       label_method: :second,
       value_method: :first,
@@ -16,6 +18,9 @@
       style: "height: 300px; padding: 8px;"
       }
     %>
-    <%= f.submit class: "btn btn-primary custom-button" %>
-  <% end %>
+          <%= f.submit class: "btn btn-primary custom-button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
