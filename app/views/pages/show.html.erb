@@ -1,47 +1,34 @@
-<div class="container my-5" style="max-width: 900px;">
+<div class="container">
   <!-- Hardcoded Book Page Text -->
-  <div class="text-center">
-    <% @languages.each do |language| %>
-      <h2 class="mb-4" style="font-size: 1.5rem; line-height: 1.6;">
-        <%= @page.text[language] %>
-      </h2>
-    <% end %>
-  </div>
-
-  <!-- Image with Left/Right Arrows -->
-  <div class="d-flex justify-content-center align-items-center mb-4" style="gap: 24px;">
-    <% if @page_number > 1 %>
-      <%= link_to book_page_path(@book, @page_number - 1),
-            class: "arrow-button", style: "width: 80px;" do %>
-            <i class="fa-solid fa-arrow-left"></i>
+  <div data-controller="flipbook">
+    <!-- All pages must be children of this container! -->
+    <div data-flipbook-target="container" class="pageflip-container">
+      <% @pages.each_with_index do |page, index| %>
+        <div class="my-page" data-page="<%= index %>">
+          <div class="page-content text-center">
+            <% @languages.each do |language| %>
+              <h2><%= page.text[language] %></h2>
+            <% end %>
+          </div>
+          <div class="text-end">
+            Page <%= index + 1 %> of <%= @pages.size %>
+          </div>
+        </div>
+        <div class="my-page text-center">
+          <% if page.photo.attached? %>
+            <%= image_tag url_for(page.photo), class: "img-fluid", style: "max-height: 350px;" %>
+          <% else %>
+            <p>No image available.</p>
+          <% end %>
+        </div>
       <% end %>
-    <% else %>
-      <div style="width: 80px;"></div>
-    <% end %>
-
-    <% if @page.photo.attached? %>
-      <%= image_tag url_for(@page.photo),
-            class: "img-fluid",
-            style: "max-height: 400px; object-fit: contain;" %>
-    <% else %>
-      <p>No image available.</p>
-    <% end %>
-
-    <% if @page_number < @total_pages %>
-      <%= link_to book_page_path(@book, @page_number + 1),
-            class: "arrow-button", style: "width: 80px;" do %>
-            <i class="fa-solid fa-arrow-right"></i>
-      <% end %>
-    <% else %>
-      <div style="width: 80px;"></div>
-    <% end %>
+    </div>
+    <!-- Buttons -->
+    <div class="container-fluid d-flex justify-content-between px-4 mt-3">
+      <button data-action="flipbook#previous" class="rounded-pill btn btn-outline-primary"> &lt;&lt; Previous page</button>
+      <button data-action="flipbook#next" class="rounded-pill btn btn-outline-primary">Next page &gt;&gt;</button>
+    </div>
   </div>
-
-  <!-- Page Count -->
-  <div class="text-center mb-4">
-    Page <%= @page_number %> of <%= @total_pages %>
-  </div>
-
   <!-- Language Badges -->
   <div class="bg-light border-top px-4 py-2 d-flex justify-content-between align-items-center flex-wrap shadow-sm" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030;">
     <div class="mb-4">
@@ -49,7 +36,7 @@
         <strong>Selected Languages:</strong>
       </div>
       <% if @languages.present? %>
-        <% @languages.each do |language| %>
+        <% @languages.each_with_index do |language, index| %>
           <span class="tag-badge rounded-pill bg-light border text-dark me-2 mt-2 p-1">
             <%= language_display(language) %>
           </span>
@@ -58,7 +45,6 @@
         <p>No languages selected.</p>
       <% end %>
     </div>
-
     <!-- Return Button -->
     <div class="text-center">
       <%= link_to "Return to Book", book_path(@book),
@@ -66,4 +52,7 @@
     </div>
   </div>
 </div>
-
+<%# <div class="text-center mt-5">
+      <button data-action="flipbook#previous">⬅️ Previous</button>
+      <button data-action="flipbook#next">Next ➡️</button>
+    </div> %>
