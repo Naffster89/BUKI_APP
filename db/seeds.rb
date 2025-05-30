@@ -132,7 +132,7 @@ book_data.each do |attrs|
   pages.each_with_index do |text, i|
     page = Page.create!(
       book: book,
-      text: { en: text },
+      text: { "EN" => text },
       page_number: i + 1
     )
 
@@ -189,7 +189,7 @@ books_csv.each do |row|
 
     page = Page.create!(
       book: book,
-      text: { en: text },
+      text: { "EN" => text },
       page_number: page_number
     )
 
