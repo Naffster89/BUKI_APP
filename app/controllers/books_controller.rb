@@ -1,7 +1,11 @@
+require 'open-uri'
+
 class BooksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :new, :create]
 
   def index
+    @book = Book.new
+
     if params[:query].present?
       @books = Book.search_by_title_and_description(params[:query])
     else
@@ -23,53 +27,66 @@ class BooksController < ApplicationController
     location = params[:location]
     page_count = params[:page_count].to_i
 
-    @book = Book.new
-
     if page_count < 5
       render :new
       return
     end
 
     prompt = <<~PROMPT
-      I want a children's story with the following:
+      Write a #{page_count}-page children's story.
+
+      Story elements:
       - Main character: #{character}
       - Action: #{action}
       - Location: #{location}
-      - Total pages: #{page_count}
 
-      Please write:
-      1. A short story split into #{page_count} parts (one per page).
-      2. For each part, include a brief image description.
+      Format each page exactly like this:
 
-      Format:
-      Page 1:
-      Text: ...
-      Image: ...
+      **Page 1:**
+      **Text:** ...
+      **Image:** ...
+
+      Continue to Page #{page_count}.
+
+      At the end, include this line:
+      Cover Image: [one-line description of the front cover]
+
+      Do not include any title or explanations, only content.
     PROMPT
-    client = OpenAI::Client.new
-    response = client.chat(parameters: {
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: "Tell me why Ruby is an elegant coding language"}]
-    })
-    # client = OpenAI::Client.new
-    # response = client.chat(
-    #   parameters: {
-    #     model: "gpt-4.1",
-    #     messages: [
-    #       { role: "system", content: "You are a creative children's book author." },
-    #       { role: "user", content: prompt }
-    #     ],
-    #     temperature: 0.9,
-    #     max_tokens: 1500
-    #   }
-    # )
 
+    story_text, image_prompt = BookGenerationService.new(prompt).generate_story_and_cover_prompt
+    image_url = image_prompt.present? ? CoverImageService.generate(image_prompt) : nil
+    cover_file = image_url.present? ? URI.open(image_url) : nil
 
-    result = response["choices"].first["text"]
-    title = "The Adventures of #{character.capitalize}"
-    @book = Book.new(title: title, description: result, author: "AI StoryBot")
+    @book = Book.new(
+      title: "The Adventures of #{character.capitalize}",
+      author: "AI StoryBot",
+      description: ""
+    )
+
+    @book.cover_image.attach(io: cover_file, filename: "cover.jpg", content_type: "image/jpeg") if cover_file
 
     if @book.save
+      pages = story_text.scan(/\*\*Page (\d+):\*\*.*?\*\*Text:\*\*(.*?)\*\*Image:\*\*(.*?)(?=(\*\*Page|\z))/m)
+
+      pages.each do |page_number, text, image_prompt, _|
+        page = @book.pages.create!(
+          page_number: page_number.to_i,
+          text: { "en" => text.strip },
+          image_prompt: image_prompt.strip
+        )
+
+        if image_prompt.present?
+          begin
+            generated_url = CoverImageService.generate(image_prompt)
+            image_file = URI.open(generated_url)
+            page.photo.attach(io: image_file, filename: "page_#{page_number}.jpg", content_type: "image/jpeg")
+          rescue => e
+            Rails.logger.warn "Image generation failed for page #{page_number}: #{e.message}"
+          end
+        end
+      end
+
       redirect_to @book
     else
       render :new
