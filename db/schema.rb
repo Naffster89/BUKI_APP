@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_011524) do
     t.string "language"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "cover_url"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -75,6 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_02_011524) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.jsonb "text"
+    t.string "image_prompt"
     t.index ["book_id"], name: "index_pages_on_book_id"
   end
 
