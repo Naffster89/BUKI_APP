@@ -16,10 +16,11 @@ class PagesController < ApplicationController
     end
 
     @total_pages = @book.pages.count
-    @languages = (params[:languages] || ["en"]).compact
+    @languages = (params[:languages] || ["en"]).map(&:downcase)
     @page.text ||= {}
 
     @translated_text = nil
+
     @languages.each do |lang|
       if @page.text[lang].present?
         @translated_text = @page.text[lang]

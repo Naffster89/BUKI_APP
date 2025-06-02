@@ -1,0 +1,7 @@
+<h2 id="page-<%= page.id %>-<%= language.upcase %>" class="my-3">
+  <% if page.text[language.upcase].present? %>
+    <%= page.text[language.upcase] %>
+  <% else %>
+    <i class="fa-solid fa-spinner fa-spin"></i>
+  <% end %>
+</h2>

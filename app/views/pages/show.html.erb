@@ -14,9 +14,10 @@
     <div data-flipbook-target="container" class="pageflip-container">
       <% @pages.each_with_index do |page, index| %>
         <div class="my-page bg-white" data-page="<%= index %>">
-          <div class="page-content text-center d-flex flex-column justify-content-center">
+          <div  class="page-content text-center d-flex flex-column justify-content-center">
+            <%= turbo_stream_from "page_#{page.id}_text" %>
             <% @languages.each do |language| %>
-              <h2><%= page.text[language.upcase] %></h2>
+              <%= render "pages/translated_texts", page: page, language: language %>
             <% end %>
           </div>
           <div class="text-end mt-2">
