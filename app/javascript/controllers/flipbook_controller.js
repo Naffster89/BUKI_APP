@@ -4,8 +4,6 @@ export default class extends Controller {
   static targets = ["container"]
 
   connect() {
-    console.log(window.screen.width);
-    console.log(window.screen.height);
 
     this.pageFlip = new St.PageFlip(this.containerTarget, {
       width: window.screen.width - 50,
