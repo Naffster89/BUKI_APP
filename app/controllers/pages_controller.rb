@@ -19,15 +19,14 @@ class PagesController < ApplicationController
     @total_pages = @book.pages.count
     @languages = params[:languages] || ["EN"]
 
-    @languages.each do |language|
-      @pages.each do |page|
-        page.text ||= {}
-        if page.text[language].blank? && page.text["EN"].present?
-          TranslateService.new(page, page.text["EN"], language).call
-          page.reload
-        end
-        page.save
-      end
-    end
+    TranslateBookJob.perform_later(@book, @languages)
+    # @languages.each do |language|
+    #   @pages.each do |page|
+    #     page.text ||= {}
+    #     if page.text[language].blank? && page.text["EN"].present?
+    #       TranslateBookJob.perform_later(page, language)
+    #     end
+    #   end
+    # end
   end
 end
