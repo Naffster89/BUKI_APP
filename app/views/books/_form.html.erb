@@ -20,6 +20,10 @@
   </p>
 
   <p>
-    <%= submit_tag "Generate Book" %>
+    <div style="text-align: center;">
+      <%= button_tag(type: "submit", class: "custom-button", style: "border: 0;") do %>
+    Generate Book
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
+  <% end %>
   </p>
 <% end %>
