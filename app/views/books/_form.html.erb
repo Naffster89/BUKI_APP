@@ -1,25 +1,36 @@
-<%= form_with model: @book, url: books_path do |f| %>
-  <p>
-    <%= label_tag :character, "Main character" %><br>
-    <%= text_field_tag :character, params[:character] %>
-  </p>
+<div class="container my-5" style="max-width: 500px;">
+  <h2 class="mb-4">Create a New Book</h2>
 
-  <p>
-    <%= label_tag :action, "What is the character doing?" %><br>
-    <%= text_field_tag :action, params[:action] %>
-  </p>
+  <%= form_with url: books_path, method: :post, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :character, "Character Name", class: "form-label" %>
+      <%= form.text_field :character, class: "form-control", required: true %>
+    </div>
 
-  <p>
-    <%= label_tag :location, "Story setting" %><br>
-    <%= text_field_tag :location, params[:location] %>
-  </p>
+    <div class="mb-3">
+      <%= form.label :species, "What kind of character is it?", class: "form-label" %>
+      <%= form.select :species, options_for_select(["Bear", "Rabbit", "Fox", "Turtle", "Cat", "Dog", "Mouse", "Other"]), { prompt: "Choose a species" }, class: "form-select", required: true %>
+    </div>
 
-  <p>
-    <%= label_tag :page_count, "Number of pages" %><br>
-    <%= number_field_tag :page_count, params[:page_count] || 5, min: 5 %>
-  </p>
+    <div class="mb-3">
+      <%= form.label :page_count, "Number of pages", class: "form-label" %>
+      <%= form.number_field :page_count, min: 5, max: 10, value: 5, class: "form-control", required: true %>
+      <small class="form-text text-muted">Minimum 5 pages, maximum 10.</small>
+    </div>
 
-  <p>
-    <%= submit_tag "Generate Book" %>
-  </p>
-<% end %>
+    <div class="mb-3">
+      <%= form.label :style, "Illustration Style", class: "form-label" %>
+      <%= form.select :style,
+          options_for_select([
+            ["Soft style (like Peter Rabbit)", "beatrix_potter"],
+            ["Classic Disney-like", "early_disney"],
+            ["Modern Cute Cartoon", "modern_cartoon"]
+          ]),
+          { prompt: "Choose a style" },
+          class: "form-select", required: true %>
+      <small class="form-text text-muted">This guides the drawing style. Results may vary slightly.</small>
+    </div>
+
+    <%= form.submit "Generate Book", class: "btn btn-primary w-100" %>
+  <% end %>
+</div>
