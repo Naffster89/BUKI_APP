@@ -24,6 +24,12 @@ class TranslateService
     page.text ||= {}
     page.text[language] = translated
     page.save
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "page_#{page.id}_text",
+      partial: "pages/translated_texts",
+      target: "page-#{page.id}-#{language}",
+      locals: { page: page, language: language}
+    )
   end
 
   private
@@ -38,6 +44,7 @@ class TranslateService
       target_lang_code
     )
 
+    # "This is a test!"
     response.text # Return the translated text
   # rescue => e
   #   Rails.logger.error("DeepL Translation Error: #{e.message}")
