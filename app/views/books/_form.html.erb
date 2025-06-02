@@ -18,19 +18,11 @@
       <small class="form-text text-muted">Minimum 5 pages, maximum 10.</small>
     </div>
 
-    <div class="mb-3">
-      <%= form.label :style, "Illustration Style", class: "form-label" %>
-      <%= form.select :style,
-          options_for_select([
-            ["Soft style (like Peter Rabbit)", "beatrix_potter"],
-            ["Classic Disney-like", "early_disney"],
-            ["Modern Cute Cartoon", "modern_cartoon"]
-          ]),
-          { prompt: "Choose a style" },
-          class: "form-select", required: true %>
-      <small class="form-text text-muted">This guides the drawing style. Results may vary slightly.</small>
-    </div>
-
-    <%= form.submit "Generate Book", class: "btn btn-primary w-100" %>
+  <p>
+    <div style="text-align: center;">
+      <%= button_tag(type: "submit", class: "custom-button", style: "border: 0;") do %>
+    Generate Book
+    <i class="fa-solid fa-wand-magic-sparkles"></i>
   <% end %>
-</div>
+  </p>
+<% end %>
