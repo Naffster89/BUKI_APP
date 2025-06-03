@@ -1,12 +1,14 @@
 <div id="audio-<%= page.id %>-<%= language %>" data-controller="audio-recorder">
   <% if recording.id %>
-    <div class="text-start">
+    <div class="text-end">
       <audio class="d-none" data-audio-recorder-target="audio" src="<%= recording.audio.url %>" controls></audio>
       <span class="badge text-bg-primary text-white" data-action="click->audio-recorder#play">Play Audio <i class="fa-solid fa-play"></i></span>
     </div>
   <% else %>
-    <div class="text-start gap-1 d-flex align-items-center">
-      <span class="badge text-bg-info">Play AI Audio <i class="fa-solid fa-play"></i></span>
+    <div class="text-start gap-1 d-flex align-items-center justify-content-end">
+      <span class="badge text-bg-info" data-text="<%= page.text[language.upcase] %>"
+        data-language="<%= language.upcase %>" data-action="click->audio-recorder#playAi">Play AI Audio <i class="fa-solid fa-play"></i>
+      </span>
       <span class="badge text-bg-secondary" data-audio-recorder-target="start" data-action="click->audio-recorder#start">Record <i class="fa-solid fa-microphone"></i></span>
       <span class="badge text-bg-danger d-none" data-audio-recorder-target="stop" data-action="click->audio-recorder#stop">Stop Recoring <i class="fa-solid fa-microphone"></i></span>
       <audio data-audio-recorder-target="audio" controls class="d-none"></audio>
