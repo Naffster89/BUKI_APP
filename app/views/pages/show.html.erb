@@ -16,7 +16,18 @@
         <div class="my-page bg-white" data-page="<%= index %>">
           <div class="page-content text-center d-flex flex-column justify-content-center">
             <% @languages.each do |language| %>
-              <h2><%= page.text[language.upcase] %></h2>
+              <div class="mb-4">
+                <h2 id="page-text-<%= language.upcase %>" class="d-inline">
+                  <%= page.text[language.upcase] %>
+                </h2>
+                <button
+                  class="btn btn-light rounded-pill tts-button"
+                  data-text="<%= j page.text[language.upcase] %>"
+                  data-language="<%= language.upcase %>"
+                  >
+                  <i class="fa-solid fa-volume-high"></i>
+                </button>
+              </div>
             <% end %>
           </div>
           <div class="text-end mt-2">
@@ -64,10 +75,12 @@
         <p class="mb-0">No languages selected.</p>
       <% end %>
     </div>
-    <!-- Return Button -->
-    <div class="text-center">
-      <%= link_to "Return to Book", book_path(@book),
+    <!-- TTS button start -->
+    <div class="d-flex gap-2">
+      <!-- Return Button -->
+      <div class="text-center">
+        <%= link_to "Return to Book", book_path(@book),
           class: "rounded-pill btn btn-outline-primary" %>
+      </div>
     </div>
   </div>
-</div>

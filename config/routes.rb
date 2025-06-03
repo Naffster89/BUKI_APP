@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   end
 
   resources :favorites, only: [:index, :destroy]
+
+  get "/tts", to: "tts#speak"
+  post "tts/speak", to: "tts#speak"
+  post "tts/voicevox", to: "tts#voicevox"
 end
