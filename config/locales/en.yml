@@ -27,5 +27,12 @@
 #       "yes": yup
 #       enabled: "ON"
 
+# en:
+#   hello: "Hello world"
 en:
-  hello: "Hello world"
+  page:
+    language:
+      en: "English"
+      jp: "Japanese"
+      fr: "French"
+      es: "Spanish"
