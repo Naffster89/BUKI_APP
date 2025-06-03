@@ -52,19 +52,7 @@
     </div>
   </div>
   <!-- Language Badges -->
-  <div class="bg-light border-top px-4 py-2 d-flex justify-content-between align-items-center flex-wrap shadow-sm" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030;">
-    <div class="mb-4 d-flex flex-wrap align-items-center gap-3">
-      <strong class="me-2 mb-0">Selected Languages:</strong>
-      <% if @languages.present? %>
-        <% @languages.each do |language| %>
-          <span class="tag-badge rounded-pill bg-light border text-dark p-1">
-            <%= language_display(language) %>
-          </span>
-        <% end %>
-      <% else %>
-        <p class="mb-0">No languages selected.</p>
-      <% end %>
-    </div>
+  <div class="bg-light border-top px-4 py-2 d-flex justify-content-end" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030;">
     <!-- Return Button -->
     <div class="text-center">
       <%= link_to "Return to Book", book_path(@book),

@@ -1,0 +1,20 @@
+<div id="audio-<%= page.id %>-<%= language %>" data-controller="audio-recorder">
+  <% if recording.id %>
+    <div class="text-start">
+      <audio class="d-none" data-audio-recorder-target="audio" src="<%= recording.audio.url %>" controls></audio>
+      <span class="badge text-bg-primary text-white" data-action="click->audio-recorder#play">Play Audio <i class="fa-solid fa-play"></i></span>
+    </div>
+  <% else %>
+    <div class="text-start gap-1 d-flex align-items-center">
+      <span class="badge text-bg-info">Play AI Audio <i class="fa-solid fa-play"></i></span>
+      <span class="badge text-bg-secondary" data-audio-recorder-target="start" data-action="click->audio-recorder#start">Record <i class="fa-solid fa-microphone"></i></span>
+      <span class="badge text-bg-danger d-none" data-audio-recorder-target="stop" data-action="click->audio-recorder#stop">Stop Recoring <i class="fa-solid fa-microphone"></i></span>
+      <audio data-audio-recorder-target="audio" controls class="d-none"></audio>
+      <%= simple_form_for [page, recording] do |f| %>
+        <%= f.input :language, as: :hidden, input_html: { class: 'd-none', value: language } %>
+        <%= f.input :audio, as: :file, label: false, input_html: { class: 'd-none', data: { audio_recorder_target: 'input' }} %>
+        <%= f.submit "Save Recording", class: 'd-none', data: { audio_recorder_target: 'submit' } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
