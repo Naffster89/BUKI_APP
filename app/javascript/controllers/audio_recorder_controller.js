@@ -49,4 +49,43 @@ export default class extends Controller {
   play(){
     this.audioTarget.play()
   }
+
+  playAi(event){
+      console.log("🔊 Button clicked!");
+      const btn = event.currentTarget;
+      const text = btn.dataset.text;
+      const language = btn.dataset.language;
+      let ttsUrl = "/tts/speak";
+
+      if (!text || !language) {
+        console.error("Missing data-text or data-language attribute.");
+        return;
+      }
+
+      if (language === "JA") {
+        ttsUrl = "/tts/voicevox";
+      }
+
+      fetch(ttsUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ text: text, language: language })
+      })
+        .then(response => {
+          if (!response.ok) throw new Error("TTS request failed");
+          return response.blob();
+        })
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const audio = new Audio(url);
+          audio.play();
+        })
+        .catch(error => {
+          console.error("🎧 Error playing audio:", error);
+        });
+
+  }
 }

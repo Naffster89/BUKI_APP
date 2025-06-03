@@ -79,7 +79,49 @@ book_data = [
     description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
     language: "French",
     cover_image: "01_de_avonturen_va_klienen_piet.jpg"
-  }
+  },
+  {
+    title: "My Father's Dragon",
+    author: "Ruth Stiles Gannett",
+    description: "'My Father's Dragon' by Ruth Stiles Gannett is a children's novel written in the late 1940s. The book tells the enchanting tale of a young boy named Elmer Elevator, who embarks on an adventurous journey to rescue a baby dragon from the treacherous Wild Island...",
+    language: "French",
+    cover_image: "my_father's_dragon_cover.jpg"
+  },
+  {
+    title: "The Tower of Treasure",
+    author: "Franklin W. Dixon",
+    description: "'The Tower Treasure' by Franklin W. Dixon is a mystery novel likely written in the early 20th century. The story introduces the Hardy Boys, Frank and Joe, who are eager to follow in their father's footsteps as detectives. ...",
+    language: "French",
+    cover_image: "the_tower_of_treasure_illusc.jpg"
+  },
+  {
+    title: "Mother McGrew and Tommy Turkey",
+    author: "Alice Crew Gall",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "01mtt.jpg"
+  },
+  {
+    title: "On The Trail of The Space Pirates",
+    author: "Carey Rockwell",
+    description: "'On the Trail of the Space Pirates' by Carey Rockwell is a science fiction novel written in the early 1950s. This adventurous story follows the exploits of Tom Corbett and his fellow Space Cadets—Roger Manning and Astro—as they navigate the challenges of space travel while facing the threat of nefarious space pirates. Their journey begins as they return to Space Academy, where they are soon pulled into a mysterious plot involving stolen secrets and a race against time to protect interplanetary peace. The opening of the novel introduces the main characters on their way back to the Space Academy, where they will receive new assignments. ...",
+    language: "English",
+    cover_image: "on_the_trail_of_the_space_pirates_cover.jpg"
+  },
+  {
+    title: "Raggedy Ann Stories",
+    author: "Johnny Gruelle",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "raggedy_ann_stories_title.jpg"
+  },
+  {
+    title: "Around the World in a Berry Wagon",
+    author: "",
+    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    language: "French",
+    cover_image: "01atwCover.jpg"
+  },
 ]
 
 real_pages = {
