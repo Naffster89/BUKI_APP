@@ -9,28 +9,21 @@
           <%= render "form", book: @book %>
         </div>
       </div>
-      <style>
-        #new_book_form input[type="text"],
-        #new_book_form input[type="email"],
-        #new_book_form input[type="password"],
-        #new_book_form input[type="number"],
-        #new_book_form textarea,
-        #new_book_form select {
-          width: 100%;
-        }
-      </style>
-      <!-- Book card gets appended here -->
+
+      <!-- Book list -->
       <div id="books-list" class="row mt-5"></div>
-
-<div class="text-center my-4">
-  <h1>Create Your Own Book</h1>
-  <!-- Form gets replaced here -->
-  <div id="new_book_form">
-    <div id="form_area">
-      <%= render "form", book: @book %>
-
     </div>
   </div>
-  <!-- Book card gets appended here -->
-  <div id="books-list" class="row mt-5"></div>
 </div>
+
+<!-- Style for form inputs -->
+<style>
+  #new_book_form input[type="text"],
+  #new_book_form input[type="email"],
+  #new_book_form input[type="password"],
+  #new_book_form input[type="number"],
+  #new_book_form textarea,
+  #new_book_form select {
+    width: 100%;
+  }
+</style>

@@ -1,3 +1,5 @@
+<div id="notifications"></div>
+
 <div class="book-container" style="max-width: 1200px; margin: 0 auto; padding: 24px 10%; font-family: sans-serif;">
   <!-- Back Link and Book Title -->
   <div style="margin-bottom: 24px;">
@@ -9,6 +11,7 @@
       <h2 style="color: grey; font-weight: 400;">By <%= @book.author %></h2>
     <% end %>
   </div>
+
   <div class="row" style="background: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 32px 24px;">
     <!-- Cover Image Column -->
     <div class="col-5">
@@ -20,6 +23,7 @@
         <% end %>
       </div>
     </div>
+
     <!-- Book Info & Form Column -->
     <div class="col-7 d-flex flex-column justify-content-between">
       <div>
@@ -28,17 +32,19 @@
             <%= @book.description %>
           </p>
         <% end %>
+
         <!-- Open Book Form -->
         <%= form_with url: book_page_path(@book, 1), method: :get, html: { class: 'w-100' } do %>
           <fieldset class="form-group">
             <legend class="col-form-label pt-0">Select Languages:</legend>
+
             <% current_user.languages.each_with_index do |language, index| %>
               <div class="form-check mb-2" style="background:rgb(238, 238, 238); outline-offset: 0px; border-radius: 16px; padding: 6px;">
                 <input class="form-check-input" type="checkbox"
-           value="<%= language %>"
-           name="languages[]"
-           id="<%= language.parameterize %>-<%= index %>"
-           <%= 'checked' if index == 0 %>>
+                  value="<%= language %>"
+                  name="languages[]"
+                  id="<%= language.parameterize %>-<%= index %>"
+                  <%= 'checked' if index == 0 %>>
                 <label class="form-check-label" for="<%= language.parameterize %>-<%= index %>">
                   <%= full_name(language) %>
                 </label>
@@ -49,6 +55,7 @@
               <%= render "favorites/create", book: @book %>
             </div>
           </fieldset>
+
           <div class="mt-5">
             <button type="submit" class="btn btn-primary text-white custom-button">
               Open Book <span style="margin-left: 8px;"><i class="fa-solid fa-book-open"></i></span>
