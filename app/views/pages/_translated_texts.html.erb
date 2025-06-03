@@ -1,0 +1,13 @@
+<div id="page-<%= page.id %>-<%= language.upcase %>" class="my-3">
+  <p class="m-0 text-end">
+    <small><%= language_display(language) %></small>
+    <%= render "pages/recording_form", language: language, page: page, recording: current_user.recordings.find_by(page: page, language: language) || Recording.new %>
+  </p>
+  <h2>
+    <% if page.text[language.upcase].present? %>
+      <%= page.text[language.upcase] %>
+    <% else %>
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    <% end %>
+  </h2>
+</div>

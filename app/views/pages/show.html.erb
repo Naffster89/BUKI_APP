@@ -1,4 +1,7 @@
 <div class="h-100">
+  <!-- 🔔 Turbo notification target -->
+  <div id="notifications" style="position: fixed; top: 20px; right: 20px; z-index: 1050;"></div>
+
   <!-- Hardcoded Book Page Text -->
   <div style="background-image: url('<%= asset_path("pages-bg.jpg") %>'); background-size: cover;
               background-repeat: no-repeat;
@@ -14,20 +17,10 @@
     <div data-flipbook-target="container" class="pageflip-container">
       <% @pages.each_with_index do |page, index| %>
         <div class="my-page bg-white" data-page="<%= index %>">
-          <div class="page-content text-center d-flex flex-column justify-content-center">
+          <div  class="page-content text-center d-flex flex-column justify-content-center">
+            <%= turbo_stream_from "page_#{page.id}_text" %>
             <% @languages.each do |language| %>
-              <div class="mb-4">
-                <h2 id="page-text-<%= language.upcase %>" class="d-inline">
-                  <%= page.text[language.upcase] %>
-                </h2>
-                <button
-                  class="btn btn-light rounded-pill tts-button"
-                  data-text="<%= j page.text[language.upcase] %>"
-                  data-language="<%= language.upcase %>"
-                  >
-                  <i class="fa-solid fa-volume-high"></i>
-                </button>
-              </div>
+              <%= render "pages/translated_texts", page: page, language: language %>
             <% end %>
           </div>
           <div class="text-end mt-2">
@@ -62,24 +55,10 @@
     </div>
   </div>
   <!-- Language Badges -->
-  <div class="bg-light border-top px-4 py-2 d-flex justify-content-between align-items-center flex-wrap shadow-sm" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030;">
-    <div class="mb-4 d-flex flex-wrap align-items-center gap-3">
-      <strong class="me-2 mb-0">Selected Languages:</strong>
-      <% if @languages.present? %>
-        <% @languages.each do |language| %>
-          <span class="tag-badge rounded-pill bg-light border text-dark p-1">
-            <%= language_display(language) %>
-          </span>
-        <% end %>
-      <% else %>
-        <p class="mb-0">No languages selected.</p>
-      <% end %>
-    </div>
-    <!-- TTS button start -->
-    <div class="d-flex gap-2">
-      <!-- Return Button -->
-      <div class="text-center">
-        <%= link_to "Return to Book", book_path(@book),
+  <div class="bg-light border-top px-4 py-2 d-flex justify-content-end" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030;">
+    <!-- Return Button -->
+    <div class="text-center">
+      <%= link_to "Return to Book", book_path(@book),
           class: "rounded-pill btn btn-outline-primary" %>
       </div>
     </div>

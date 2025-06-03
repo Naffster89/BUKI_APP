@@ -19,10 +19,15 @@
     <% unless controller_name == 'pages' && action_name == 'show' %>
       <%= render "shared/topbar" %>
     <% end %>
+
+    <div id="notifications" style="position: fixed; top: 70px; right: 20px; z-index: 1050;"></div>
+
     <%= render "shared/flashes" %>
+
     <div class="content" style="margin-top: 60px; padding-bottom: 120px;">
       <%= yield %>
     </div>
+
     <% unless controller_name == 'pages' && action_name == 'show' %>
       <%= render "shared/navbar" %>
     <% end %>
