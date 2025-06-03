@@ -2,7 +2,7 @@
 
 <div class="card shadow-sm w-100" style="height: 500px;">
   <%= image_tag(
-        book.cover_image.attached? ? url_for(book.cover_image) : book.cover_url.presence || "placeholder.jpg",
+        book.cover_image.attached? ? url_for(book.cover_image) : "placeholder.jpg",
         class: "card-img-top",
         style: "object-fit: cover; height: 250px; object-position: top;"
       ) %>
