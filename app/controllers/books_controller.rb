@@ -1,12 +1,11 @@
+require 'open-uri'
+
 class BooksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :new, :create]
 
   def index
-    if params[:query].present?
-      @books = Book.search_by_title_and_description(params[:query])
-    else
-      @books = Book.all
-    end
+    @book = Book.new
+    @books = params[:query].present? ? Book.search_by_title_and_description(params[:query]) : Book.all
   end
 
   def show
@@ -18,76 +17,27 @@ class BooksController < ApplicationController
   end
 
   def create
-    character = params[:character]
-    action = params[:action]
-    location = params[:location]
-    page_count = params[:page_count].to_i
+    @character_name = params[:character].to_s.strip
+    @character_species = params[:species].to_s.strip
+    @page_count = params[:page_count].to_i
 
-    @book = Book.new
-
-    if page_count < 5
-      render :new
-      return
+    if invalid_input?
+      flash[:alert] = "Please fill out all fields and ensure page count is between 5 and 10."
+      return render :new
     end
 
-    prompt = <<~PROMPT
-      I want a children's story with the following:
-      - Main character: #{character}
-      - Action: #{action}
-      - Location: #{location}
-      - Total pages: #{page_count}
+    @book = Book.new(title: "Generating...", author: "AI StoryBot", description: "Generating...")
+    @book.user = current_user if user_signed_in?
+    @book.save!
 
-      Please write:
-      1. A short story split into #{page_count} parts (one per page).
-      2. For each part, include a brief image description.
+    BookGenerationJob.perform_later(@book.id, @character_name, @character_species, @page_count)
 
-      Format:
-      Page 1:
-      Text: ...
-      Image: ...
-    PROMPT
-    client = OpenAI::Client.new
-    response = client.chat(parameters: {
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: "Tell me why Ruby is an elegant coding language"}]
-    })
-    # client = OpenAI::Client.new
-    # response = client.chat(
-    #   parameters: {
-    #     model: "gpt-4.1",
-    #     messages: [
-    #       { role: "system", content: "You are a creative children's book author." },
-    #       { role: "user", content: prompt }
-    #     ],
-    #     temperature: 0.9,
-    #     max_tokens: 1500
-    #   }
-    # )
-
-
-    result = response["choices"].first["text"]
-    title = "The Adventures of #{character.capitalize}"
-    @book = Book.new(title: title, description: result, author: "AI StoryBot")
-
-    if @book.save
-      redirect_to @book
-    else
-      render :new
-    end
-  end
-
-  def update
-    @book = Book.find(params[:id])
-    if @book.update(book_params)
-      redirect_to @book
-    else
-      render :show
-    end
+    redirect_to books_path, notice: "📚 Your book is being generated! You'll be notified when it's ready."
   end
 
   private
 
-  def book_params
-    params.require(:book).permit(:language)
+  def invalid_input?
+    @character_name.blank? || @character_species.blank? || !@page_count.between?(5, 10)
   end
 end

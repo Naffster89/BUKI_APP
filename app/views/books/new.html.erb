@@ -1,11 +1,29 @@
-<div class="text-center my-4">
-  <h1>Create Your Own Book</h1>
-  <!-- Form gets replaced here -->
-  <div id="new_book_form">
-    <div id="form_area">
-      <%= render "form", book: @book %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-6 mt-5 p-4 rounded-5" style="background-color: white;">
+      <h1 class="text-center mb-4">Create your own story in seconds</h1>
+      <h3 class="text-center mb-4 px-3">Tap in your ideas, and let the AI turn them into a tale you’ll love!</h3>
+      <!-- Form gets replaced here -->
+      <div id="new_book_form">
+        <div id="form_area">
+          <%= render "form", book: @book %>
+        </div>
+      </div>
+
+      <!-- Book list -->
+      <div id="books-list" class="row mt-5"></div>
     </div>
   </div>
-  <!-- Book card gets appended here -->
-  <div id="books-list" class="row mt-5"></div>
 </div>
+
+<!-- Style for form inputs -->
+<style>
+  #new_book_form input[type="text"],
+  #new_book_form input[type="email"],
+  #new_book_form input[type="password"],
+  #new_book_form input[type="number"],
+  #new_book_form textarea,
+  #new_book_form select {
+    width: 100%;
+  }
+</style>

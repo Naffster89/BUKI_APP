@@ -7,7 +7,7 @@
       </div>
       <div class="user_form">
         <%= simple_form_for current_user do |f| %>
-          <%= f.input :username %>
+            <%= f.input :username %>
           <%= f.input :languages,
       collection: DeepL.languages.map { |lang| [lang.code, lang.name.capitalize] },
       label_method: :second,
