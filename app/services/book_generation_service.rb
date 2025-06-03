@@ -7,7 +7,7 @@ class BookGenerationService
   end
 
   def call
-    client = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
+    client = OpenAI::Client.new
 
     response = client.chat(
       parameters: {
