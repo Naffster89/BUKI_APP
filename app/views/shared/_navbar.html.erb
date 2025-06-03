@@ -13,7 +13,7 @@
       <% end %>
     </div>
     <div class="navbar-link">
-      <%= link_to new_book_path, class: "nav-link text-center" do %>
+      <%= link_to new_book_path, class: "nav-link text-center #{ "active" if params[:controller] == "books" && params[:action] == "new" }" do %>
         <i class="fa-solid fa-wand-magic-sparkles" style="font-size: 2rem;"></i>
         <p>AI-Stories</p>
       <% end %>
