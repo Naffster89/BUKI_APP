@@ -17,11 +17,15 @@ export default class extends Controller {
       useMouseEvents: true,
       flippingTime: 700,
       startPage: 0,
-      disableFlipByClick: false,
+      disableFlipByClick: true,
       mode: "single" // ✅ SINGLE page flip mode
     });
 
     this.pageFlip.loadFromHTML(document.querySelectorAll(".my-page"));
+    this.pageFlip.on('flip', (e) => {
+      // callback code
+      console.log(e.data); // current page number
+    });
   }
 
   previous() {

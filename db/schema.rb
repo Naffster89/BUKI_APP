@@ -82,6 +82,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_03_030435) do
     t.index ["book_id"], name: "index_pages_on_book_id"
   end
 
+  create_table "recordings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "page_id", null: false
+    t.string "language"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_recordings_on_page_id"
+    t.index ["user_id"], name: "index_recordings_on_user_id"
+  end
+
   create_table "solid_cable_messages", force: :cascade do |t|
     t.text "channel"
     t.text "payload"
@@ -233,6 +243,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_03_030435) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "books", "users"
   add_foreign_key "pages", "books"
+  add_foreign_key "recordings", "pages"
+  add_foreign_key "recordings", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
