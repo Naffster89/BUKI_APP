@@ -1,6 +1,6 @@
 class CoverImageService
   def self.generate(prompt:, cover_url: nil)
-    client = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
+    client = OpenAI::Client.new
 
     style_reference = if cover_url.present?
       "\nMatch the visual style of this image: #{cover_url}"
