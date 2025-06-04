@@ -1,5 +1,5 @@
 class TranslateService
-  attr_reader :page, :text_to_translate, :language
+  attr_reader :page, :text_to_translate, :language, :user
 
   # def initialize(page, text_to_translate, language)
   #   @text_to_translate = text_to_translate
@@ -29,7 +29,7 @@ class TranslateService
       "page_#{page.id}_text",
       partial: "pages/translated_texts",
       target: "page-#{page.id}-#{language}",
-      locals: { page: page, language: language, user: user}
+      locals: { page: page, language: language, user: user }
     )
   end
 
