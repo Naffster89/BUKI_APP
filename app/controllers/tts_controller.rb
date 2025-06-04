@@ -18,10 +18,10 @@ class TtsController < ApplicationController
   def voicevox
     text = params[:text]
 
-    speaker = "VOICEVOX:波音リツ（ノーマル）" # or let user choose
+    speaker = "VOICEVOX:波音リツ（ノーマル）"
     service = VoiceVoxService.new(ENV["VOICEVOX_API_KEY"])
 
-    audio_file_path = service.synthesize(text)
+    audio_file_path = service.synthesize(text, speaker)
     if audio_file_path
       send_file audio_file_path, type: "audio/wav", disposition: "inline"
     else
