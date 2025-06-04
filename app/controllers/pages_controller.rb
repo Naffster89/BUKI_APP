@@ -16,23 +16,7 @@ class PagesController < ApplicationController
     end
 
     @total_pages = @book.pages.count
-    @languages = (params[:languages] || ["en"]).map(&:downcase)
-    @page.text ||= {}
-
-    @translated_text = nil
-
-    @languages.each do |lang|
-      if @page.text[lang].present?
-        @translated_text = @page.text[lang]
-        break
-      elsif @page.text["en"].present?
-        TranslateService.new(@page, @page.text["en"], lang).call
-        @page.reload
-        @translated_text = @page.text[lang]
-        break
-      end
-    end
-
-    @translated_text ||= @page.text["en"] || "No content available."
+    @languages = (params[:languages] || ["en"]).map(&:upcase)
+    TranslateBookJob.perform_later(@book, @languages, current_user)
   end
 end

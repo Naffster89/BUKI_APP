@@ -12,10 +12,11 @@ class TranslateService
   #   page.save
   # end
 
-  def initialize(page, text_to_translate, language)
+  def initialize(page, text_to_translate, language, user)
     @page = page
     @text_to_translate = text_to_translate
     @language = language
+    @user = user
   end
 
   def call
@@ -28,7 +29,7 @@ class TranslateService
       "page_#{page.id}_text",
       partial: "pages/translated_texts",
       target: "page-#{page.id}-#{language}",
-      locals: { page: page, language: language}
+      locals: { page: page, language: language, user: user}
     )
   end
 

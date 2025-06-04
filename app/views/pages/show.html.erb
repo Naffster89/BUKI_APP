@@ -20,7 +20,7 @@
           <div  class="page-content text-center d-flex flex-column justify-content-center">
             <%= turbo_stream_from "page_#{page.id}_text" %>
             <% @languages.each do |language| %>
-              <%= render "pages/translated_texts", page: page, language: language %>
+              <%= render "pages/translated_texts", page: page, language: language, user: current_user %>
             <% end %>
           </div>
           <div class="text-end mt-2">
