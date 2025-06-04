@@ -5,22 +5,23 @@
         <%= image_tag "avatar.png", size: "100x100", style: "border-radius: 50%;" %>
         <h1>Kodomo Junior</h1>
       </div>
-      <div class="user_form">
-        <%= simple_form_for current_user do |f| %>
-            <%= f.input :username %>
-          <%= f.input :languages,
-      collection: DeepL.languages.map { |lang| [lang.code, lang.name.capitalize] },
-      label_method: :second,
-      value_method: :first,
-      include_blank: false,
-      input_html: {
-      multiple: true,
-      style: "height: 300px; padding: 8px;"
-      }
-    %>
-          <%= f.submit class: "btn btn-primary custom-button" %>
-        <% end %>
-      </div>
     </div>
+  </div>
+  <div class="user_form">
+    <%= simple_form_for current_user do |f| %>
+      <%= f.input :username %>
+      <fieldset class="form-group check_boxes optional snippet_tags">
+        <legend class="col-form-label pt-0">Select Languages</legend>
+        <% DeepL.languages.sort_by { |lang| lang.name.upcase }.each_with_index do |language, index| %>
+          <div class="tag-item">
+            <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language.code %>" name="user[languages][]" id="<%= language.code %>-<%= index %>" <%= "checked" if current_user.languages.include?(language.code) %>>
+            <label class="form-check-label collection_check_boxes" for="<%= language.code %>-<%= index %>"><%= language_name(language.code) %></label>
+          </div>
+        <% end %>
+      </fieldset>
+      <div class="d-flex justify-content-center">
+        <%= f.submit class: "btn btn-primary custom-button mt-3 w-50" %>
+      </div>
+    <% end %>
   </div>
 </div>
