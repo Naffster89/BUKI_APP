@@ -29,15 +29,14 @@ class TtsController < ApplicationController
     end
   end
 
-
   private
 
   def select_voice_id(language)
     # Map your supported languages to ElevenLabs voice IDs
     {
-      "en" => "hnnHB4egpDHq5yYLqnro",
-      "es" => "b2htR0pMe28pYwCY9gnP",
-    }[language] || "hnnHB4egpDHq5yYLqnro"
+      "en" => "cVd39cx0VtXNC13y5Y7z",
+      "es" => "tXgbXPnsMpKXkuTgvE3h",
+    }[language] || "cVd39cx0VtXNC13y5Y7z"
   end
 
 end
