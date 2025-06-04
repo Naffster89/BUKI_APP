@@ -81,6 +81,14 @@ export default class extends Controller {
         .then(blob => {
           const url = URL.createObjectURL(blob);
           const audio = new Audio(url);
+
+          // Set volume based on service
+          if (language === "JA") {
+            audio.volume = 0.5; // Lower volume for VoiceVox (Japanese)
+          } else {
+            audio.volume = 1.0; // Full volume for ElevenLabs (other languages)
+          }
+
           audio.play();
         })
         .catch(error => {
