@@ -3,12 +3,12 @@
   <%= form_with url: books_path, method: :post, local: true do |form| %>
     <div class="mb-3">
       <%= form.label :character, "Character Name", class: "form-label" %>
-      <%= form.text_field :character, class: "form-control", required: true %>
+      <%= form.text_field :character_name, class: "form-control", required: true %>
     </div>
 
     <div class="mb-3">
       <%= form.label :species, "What kind of character is it?", class: "form-label" %>
-      <%= form.select :species, options_for_select(["Bear", "Rabbit", "Fox", "Turtle", "Cat", "Dog", "Mouse", "Other"]), { prompt: "Choose a species" }, class: "form-select", required: true %>
+      <%= form.select :character_species, options_for_select(["Bear", "Rabbit", "Fox", "Turtle", "Cat", "Dog", "Mouse", "Other"]), { prompt: "Choose a species" }, class: "form-select", required: true %>
     </div>
 
     <div class="mb-3">
