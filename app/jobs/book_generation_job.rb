@@ -36,11 +36,27 @@ class BookGenerationJob < ApplicationJob
       description: description
     )
 
+    # ✅ Broadcast after metadata update
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "book_#{book.id}",
+      partial: "books/container",
+      target: "book-#{book.id}",
+      locals: { book: book, user: user }
+    )
+
     # Attach cover image
     cover_url = CoverImageService.generate(prompt: cover_prompt)
     if cover_url.present?
       file = URI.open(cover_url)
       book.cover_image.attach(io: file, filename: "cover.jpg", content_type: "image/jpeg")
+
+      # ✅ Broadcast again after attaching cover
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "book_#{book.id}",
+        partial: "books/container",
+        target: "book-#{book.id}",
+        locals: { book: book, user: user }
+      )
     else
       Rails.logger.warn "⚠️ No cover image generated for Book ID #{book.id}"
     end
@@ -58,7 +74,6 @@ class BookGenerationJob < ApplicationJob
         Rails.logger.error "❌ Failed to save page #{data['page']}: #{page.errors.full_messages.join(', ')}"
         next
       end
-
 
       begin
         image_url = CoverImageService.generate(prompt: data["image"], cover_url: cover_url)
