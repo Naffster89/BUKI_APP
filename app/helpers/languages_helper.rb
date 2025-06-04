@@ -47,7 +47,7 @@ module LanguagesHelper
       'VI' => '🇻🇳 Vietnamese',
       'HE' => '🇮🇱 Hebrew',
       'AR' => '🇸🇦 Arabic',
-      'NO' => '🇳🇴 Norwegian',
+      'NB' => '🇳🇴 Norwegian',
       'MS' => '🇲🇾 Malay',
       'FA' => '🇮🇷 Persian (Farsi)',
       'SW' => '🇰🇪 Swahili',
