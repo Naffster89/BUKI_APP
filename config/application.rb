@@ -6,16 +6,19 @@ require "rails/all"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Dotenv::Railtie.load if defined?(Dotenv)
+# Only load .env files in development
+Dotenv::Railtie.load if defined?(Dotenv) && Rails.env.development?
 
 module BukiApp
   class Application < Rails::Application
     config.action_controller.raise_on_missing_callback_actions = false if Rails.version >= "7.1.0"
+
     config.generators do |generate|
       generate.assets false
       generate.helper false
       generate.test_framework :test_unit, fixture: false
     end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
@@ -23,6 +26,7 @@ module BukiApp
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
+
     config.active_job.queue_adapter = :solid_queue
 
     # Configuration for the application, engines, and railties goes here.

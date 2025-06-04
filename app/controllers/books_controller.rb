@@ -17,20 +17,23 @@ class BooksController < ApplicationController
   end
 
   def create
-    @character_name = params[:character].to_s.strip
-    @character_species = params[:species].to_s.strip
+    @character_name = params[:character_name]
+    @character_species = params[:character_species]
     @page_count = params[:page_count].to_i
 
-    if invalid_input?
-      flash[:alert] = "Please fill out all fields and ensure page count is between 5 and 10."
-      return render :new
-    end
+    return render :new if invalid_input?
 
-    @book = Book.new(title: "Generating...", author: "AI StoryBot", description: "Generating...")
+    @title = "The Adventures of #{@character_name.capitalize}"
+    @book = Book.new(
+      title: "Generating...",
+      author: "AI StoryBot",
+      description: "Generating..."
+    )
     @book.user = current_user if user_signed_in?
     @book.save
 
-    BookGenerationJob.perform_later(@book.id, @character_name, @character_species, @page_count)
+    # Kick off background job
+    BookGenerationJob.perform_later(@book.id, @character_name, @character_species, @page_count, current_user)
 
     redirect_to book_path(@book), notice: "📚 Your book is being generated! You'll be notified when it's ready."
   end
