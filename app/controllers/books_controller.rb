@@ -28,11 +28,11 @@ class BooksController < ApplicationController
 
     @book = Book.new(title: "Generating...", author: "AI StoryBot", description: "Generating...")
     @book.user = current_user if user_signed_in?
-    @book.save!
+    @book.save
 
     BookGenerationJob.perform_later(@book.id, @character_name, @character_species, @page_count)
 
-    redirect_to books_path, notice: "📚 Your book is being generated! You'll be notified when it's ready."
+    redirect_to book_path(@book), notice: "📚 Your book is being generated! You'll be notified when it's ready."
   end
 
   private
