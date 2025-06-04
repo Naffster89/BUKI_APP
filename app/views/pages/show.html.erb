@@ -3,7 +3,7 @@
   <div id="notifications" style="position: fixed; top: 20px; right: 20px; z-index: 1050;"></div>
 
   <!-- Hardcoded Book Page Text -->
-  <div style="background-image: url('<%= asset_path("pages-bg.jpg") %>'); background-size: cover;
+  <div style="background-image: url('<%= asset_path("background-kaki.jpg") %>'); background-size: cover;
               background-repeat: no-repeat;
               width: 100vw;
               height: 100vh;
@@ -20,7 +20,7 @@
           <div  class="page-content text-center d-flex flex-column justify-content-center">
             <%= turbo_stream_from "page_#{page.id}_text" %>
             <% @languages.each do |language| %>
-              <%= render "pages/translated_texts", page: page, language: language %>
+              <%= render "pages/translated_texts", page: page, language: language, user: current_user %>
             <% end %>
           </div>
           <div class="text-end mt-2">

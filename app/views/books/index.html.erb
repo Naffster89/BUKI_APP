@@ -8,7 +8,12 @@
     <h1 class="centered-text" style="color: white; font-family: 'Mooli'; font-size: 50px;">Pick a Language, Open a Storybook! </h1>
     <h3 class="centered-text" style="color: white;">With Buki, you can explore a world of children's books in the language you love. Choose, read, and discover — all in one place. </h3>
     <%= form_with url: books_path, method: :get, class: "d-flex" do %>
-      <%= text_field_tag :query, params[:query], class: "form-control rounded-pill search-input", placeholder: "Search a book title", style: "color: black; border-radius: 50px;" %>
+      <%= text_field_tag :query, params[:query], class: "form-control rounded-pill search-input", placeholder: "Search a book title", style: "color: black; border-radius: 50px; transition: transform 1s;" %>
+      <style>
+        .search-input:focus {
+          transform: scale(1.05);
+        }
+      </style>
       <style>
         .search-input:focus {
           outline: none;
@@ -36,9 +41,8 @@
     <%= link_to "Create Your Own Book", new_book_path, class: "btn btn-success" %>
   </div>
 
-  <h1 style="margin-bottom: 24px;">Browse our Collection of Children's Picture Books</h1>
-
-  <div class="row g-4">
+  <div div class="cards-area row g-4 pb-5 mt-4 p-4" style="background-color: #fff; border-radius: 24px;">
+    <h1 style="margin-bottom: 24px;">Browse our Collection of Children's Picture Books</h1>
     <% @books.each do |book| %>
       <% next unless book.present? %>
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center">
