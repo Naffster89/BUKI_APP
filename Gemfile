@@ -57,7 +57,7 @@ gem 'activestorage-cloudinary-service'
 gem "pg_search"
 gem 'deepl-rb', require: 'deepl'
 gem 'countries', require: 'countries/global'
-gem "openai"
+gem "ruby-openai"
 gem "solid_queue"
 gem "solid_cable"
 

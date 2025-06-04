@@ -1,5 +1,3 @@
-return unless ENV["OPENAI_ACCESS_TOKEN"].present?
+require "openai"
 
-OpenAI.configure do |config|
-  config.access_token = ENV["OPENAI_ACCESS_TOKEN"]
-end
+OPENAI_CLIENT = OpenAI::Client.new(access_token: ENV["OPENAI_ACCESS_TOKEN"])
