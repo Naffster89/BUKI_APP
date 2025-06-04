@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     if @user.update(user_params)
-      redirect_to user_path(@user)
+
+      redirect_to user_path(@user), notice: "Languages updated!"
     else
       render "users/show", status: :unprocessable_entity
     end
