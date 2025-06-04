@@ -1,16 +1,15 @@
 <div class="container my-5">
-  <h1> ❤️ Favorites</h1>
-  <p>Welcome to your Favorites! This is your personal bookshelf, where all the stories you love most are saved and ready to read.</p>
-  <div class="cards-area row g-4 pb-5 mt-4" style="background-color: #fff;">
+  <div class="cards-area row g-4 pb-5 mt-4 p-4" style="background-color: #fff; border-radius: 24px;">
+    <h1> ❤️ Favorites</h1>
     <% if @books.present? %>
       <% @books.each do |favorite| %>
         <div class="col-sm-6 col-md-4 col-lg-3 d-flex mt-5">
           <%= link_to book_path(favorite), style: "text-decoration: none; color: inherit;" do %>
-            <div class="card rounded h-100 w-100 shadow" style="background-color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.10);">
+            <div class="card rounded h-100 w-100 shadow" style="background-color: #fff; box-shadow: 0 4px 16px rgba(0,0,0,0.10); border-radius: 32px;">
               <% if favorite.cover_image.attached? %>
                 <%= image_tag favorite.cover_image,
                   class: "card-img-top rounded",
-                  style: "max-height: 300px; object-fit: cover;" %>
+                  style: "max-height: 300px; object-fit: cover; border-radius: 32px 32px 0 0;" %>
               <% else %>
                 <p>No cover image available.</p>
               <% end %>
@@ -26,7 +25,7 @@
         </div>
       <% end %>
     <% else %>
-      <div class="message-no-favorite pb-5" style="background-color: #fff;">
+      <div class="message-no-favorite pb-5 p-4" style="background-color: #fff; border-radius: 32px;">
         You don't have any favorite books yet. Tap on the Favorite button inside a book to see them here!
       </div>
     <% end %>

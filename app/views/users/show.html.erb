@@ -5,9 +5,9 @@
         <%= image_tag "avatar.png", size: "100x100", style: "border-radius: 50%;" %>
         <h1>Kodomo Junior</h1>
       </div>
-      <div class="user_form">
+      <div class="user_form" style="border-radius: 24px;">
         <%= simple_form_for current_user do |f| %>
-            <%= f.input :username %>
+        <%= f.input :username %>
           <%= f.input :languages,
       collection: DeepL.languages.map { |lang| [lang.code, lang.name.capitalize] },
       label_method: :second,
@@ -18,7 +18,9 @@
       style: "height: 300px; padding: 8px;"
       }
     %>
-          <%= f.submit class: "btn btn-primary custom-button" %>
+          <div style="text-align: center;">
+            <%= f.submit class: "btn btn-primary custom-button" %>
+          </div>
         <% end %>
       </div>
     </div>
