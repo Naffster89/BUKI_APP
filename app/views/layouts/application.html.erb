@@ -13,21 +13,17 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <%= render 'shared/ios_pwa_links' %>
+    <link rel="apple-touch-startup-image" href="splash_background.png">
   </head>
-
-  <body>
+  <body style="background-image: url('<%= asset_path 'background-yellow.jpg' %>'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
     <% unless controller_name == 'pages' && action_name == 'show' %>
       <%= render "shared/topbar" %>
     <% end %>
-
     <div id="notifications" style="position: fixed; top: 70px; right: 20px; z-index: 1050;"></div>
-
     <%= render "shared/flashes" %>
-
     <div class="content" style="margin-top: 60px; padding-bottom: 120px;">
       <%= yield %>
     </div>
-
     <% unless controller_name == 'pages' && action_name == 'show' %>
       <%= render "shared/navbar" %>
     <% end %>
