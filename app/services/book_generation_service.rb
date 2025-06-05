@@ -25,25 +25,28 @@ class BookGenerationService
               [
                 {
                   "page": 1,
-                  "text": "Once upon a time, in a peaceful forest full of tall trees, lived a friendly bear named Benny. Benny loved to play and explore, always wearing his favorite hat.",
-                  "image": "A happy bear named Benny, playing in a forest filled with tall trees and vibrant flowers, wearing a hat."
+                  "text": "Benny the bear loved his red hat. He wore it every day in the forest.",
+                  "image": "A happy bear wearing a red hat, walking through a green forest."
                 },
                 {
                   "page": 2,
-                  "text": "One sunny day, Benny noticed that his beloved hat was missing! He looked high and low, but couldn't find it. Suddenly, a friendly blue bird fluttered down from a tree. Seeing Benny's distress, the bird offered to help him search for his hat.",
-                  "image": "An upset Benny looking around in the forest. A friendly blue bird flies down to help."
+                  "text": "One day, the hat was gone! A blue bird flew down. 'Let’s find it!' she chirped.",
+                  "image": "Benny looking sad without his hat, as a blue bird flutters beside him."
                 },
                 {
                   "page": 3,
-                  "text": "Together, Benny and the bird searched the forest. Finally, they found the hat hanging on a branch of a tall tree. Benny was so happy! The bird reminded Benny, 'It’s okay to ask for help when you're stuck.' And they continued their day, filled with new adventures.",
-                  "image": "Benny and the bird finding the hat on a tree branch. They are celebrating and ready for more adventures."
+                  "text": "They found the hat on a branch. Benny smiled. 'Thanks!' he said. 'Friends help!'",
+                  "image": "Benny smiling with his hat back on, the blue bird next to him under a tree."
                 }
               ]
 
               Follow the same structure with your output. Do not include anything outside the JSON array.
             SYS
           },
-          { role: "user", content: @prompt }
+          {
+            role: "user",
+            content: @prompt
+          }
         ],
         temperature: 0.7
       }
@@ -74,10 +77,11 @@ class BookGenerationService
       - Page 3: Together they find the hat. End with the lesson: "It’s okay to ask for help when you're stuck."
 
       Guidelines:
-      - Keep it light and fun for kids aged 5–7.
-      - Language should be warm, simple, and easy to understand.
-      - Make the blue bird friendly and encouraging.
-      - Return only the JSON array, with no extra formatting.
+      - Keep each page to 1–2 very short sentences.
+      - Target children aged 3–5.
+      - Use simple, cheerful language.
+      - The blue bird should be friendly and encouraging.
+      - Return only the JSON array with no extra formatting.
     PROMPT
   end
 end

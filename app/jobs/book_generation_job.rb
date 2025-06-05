@@ -9,13 +9,14 @@ class BookGenerationJob < ApplicationJob
     title = "The Adventures of #{character_name.capitalize}"
     description = "#{character_name.capitalize}'s Lost Hat"
 
-    style = "Beatrix Potter-inspired, pastel hand-drawn cartoon. Soft lines, friendly animal faces, consistent style. No text or surreal elements."
+    style = "Studio Ghibli-inspired. Soft, watercolor-like textures with pastel tones. Whimsical and heartwarming forest setting. Gentle lighting, expressive animal characters with big eyes and subtle smiles. Traditional hand-drawn look with clean outlines. No modern digital effects, no text, and nothing surreal or abstract."
 
     cover_prompt = <<~PROMPT.strip
-      A wide, soft, pastel-colored illustration of #{full_character} looking for a hat in a forest.
-      The character should be centered and clearly visible in the foreground.
-      Use a landscape layout (e.g., 1024x768) with a balanced composition.
-      Avoid cropping important details near the edges.
+      A landscape-format illustration (1024x768) in the style of Studio Ghibli.
+      Show #{full_character}, a friendly animal, searching for a hat in a forest.
+      The forest should be lush and magical, with dappled sunlight and natural colors.
+      The character should be clearly visible and placed in the center foreground.
+      Avoid cutting off important parts near the edges.
       Do not include any text or writing in the image.
       Style: #{style}
     PROMPT
