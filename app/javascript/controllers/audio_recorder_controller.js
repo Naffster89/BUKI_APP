@@ -86,7 +86,7 @@ export default class extends Controller {
 
       .catch(error => {
         console.error("🎧 Error playing audio:", error);
-      });
+      })
         .then(response => {
           if (!response.ok) throw new Error("TTS request failed");
           return response.blob();
@@ -107,7 +107,5 @@ export default class extends Controller {
         .catch(error => {
           console.error("🎧 Error playing audio:", error);
         });
-
-
   }
 }
