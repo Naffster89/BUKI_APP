@@ -19,7 +19,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
   </head>
-  <body style="background-image: url('<%= asset_path 'background-yellow.jpg' %>'); background-size: cover; background-repeat: no-repeat;">
+  <body style="background-image: url('<%= asset_path 'background-yellow.jpg' %>'); background-size: cover; background-repeat: repeat;">
     <% unless controller_name == 'pages' && action_name == 'show' %>
       <%= render "shared/topbar" %>
     <% end %>
