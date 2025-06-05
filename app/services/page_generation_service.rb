@@ -23,7 +23,8 @@ class PageGenerationService
 
       if data["image"].present?
         begin
-          image_url = CoverImageService.generate(prompt: data["image"], cover_url: @cover_url)
+          styled_prompt = build_styled_prompt(data["page"], data["image"])
+          image_url = CoverImageService.generate(prompt: styled_prompt, cover_url: @cover_url)
           image_file = URI.open(image_url)
           page.photo.attach(io: image_file, filename: "page_#{data['page']}.jpg", content_type: "image/jpeg")
         rescue => e
@@ -31,5 +32,22 @@ class PageGenerationService
         end
       end
     end
+  end
+
+  private
+
+  def build_styled_prompt(page_number, raw_description)
+    <<~PROMPT.strip
+      Illustration for page #{page_number} of a children's book.
+      Scene: #{raw_description}
+      Style: Beatrix Potter-inspired, pastel hand-drawn cartoon.
+      Requirements:
+      - Soft lines and gentle colors
+      - Friendly animal characters
+      - Consistent art style with other pages
+      - Landscape layout (1024x768)
+      - No text, writing, or speech bubbles
+      - Characters must be fully visible (no cropping at edges)
+    PROMPT
   end
 end
