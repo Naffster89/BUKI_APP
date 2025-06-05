@@ -1,4 +1,3 @@
-
 <div id="book-<%= book.id %>" class="row" style="background: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 32px 24px;">
   <!-- Cover Image Column -->
   <div style="margin-bottom: 24px;">
@@ -37,17 +36,30 @@
               <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language_name(language) %></label>
             </div>
           <% end %>
-          <div class="mt-4">
-            <%= render "favorites/create", book: book, current_user: current_user %>
-          </div>
         </fieldset>
-        <div class="mt-5">
+        <!-- Wrap both buttons in a horizontal flex container -->
+        <div class="mt-5 d-flex align-items-center gap-3">
           <button type="submit" class="btn btn-primary text-white custom-button animate__animated" data-action="click->click-sound#playSound" <%= 'disabled' unless book.pages.any? %>>
-            Open Book <span style="margin-left: 8px;"><i class="fa-solid fa-book-open"></i></span>
+            Open Book <span class="ms-2"><i class="fa-solid fa-book-open"></i></span>
           </button>
-          <%= audio_tag("shine.mp3",data: {click_sound_target: 'audio'}) %>
+          <%= render "favorites/create", book: book, current_user: current_user %>
         </div>
-      <% end %>
-    </div>
+        <%= audio_tag("shine.mp3", data: { click_sound_target: 'audio' }) %>
+      </div>
+    <% end %>
   </div>
 </div>
+<script>
+  document.addEventListener('turbo:load', () => {
+    document.querySelectorAll('.custom-fav-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const icon = button.querySelector('.fa-heart');
+        if (icon) {
+          icon.classList.remove('clicked');
+          void icon.offsetWidth;
+          icon.classList.add('clicked');
+        }
+      });
+    });
+  });
+</script>

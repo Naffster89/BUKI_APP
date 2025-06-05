@@ -16,4 +16,8 @@ export default class extends Controller {
     event.currentTarget.classList.add("animate__bounce")
 
   }
+
+  animate(event) {
+    event.currentTarget.classList.add("animate__bounce")
+  }
 }
