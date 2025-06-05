@@ -1,3 +1,4 @@
+
 <div id="book-<%= book.id %>" class="row" style="background: white; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 32px 24px;">
   <!-- Cover Image Column -->
   <div style="margin-bottom: 24px;">
@@ -12,7 +13,9 @@
   <div class="col-5">
     <div style="background: white; text-align: center; padding: 16px; border-radius: 12px; margin-bottom: 24px; margin-right: 32px;">
       <% if book.cover_image.attached? %>
-        <%= image_tag book.cover_image, alt: book.title, style: "max-width: 100%; height: 350px; object-fit: contain;" %>
+
+        <%= cl_image_tag book.cover_image.key, alt: book.title, style: "max-width: 100%; height: 350px; object-fit: contain;" %>
+
       <% else %>
         <i class="fa-solid fa-spinner fa-spin"></i>
       <% end %>
@@ -27,23 +30,28 @@
         </p>
       <% end %>
       <!-- Open Book Form -->
-      <%= form_with url: book_page_path(book, 1), method: :get, html: { class: 'w-100' } do %>
+
+      <%= form_with url: book_page_path(book, 1), method: :get, html: { class: 'w-100', data: {controller: "click-sound"} } do %>
         <fieldset class="form-group">
           <legend class="col-form-label pt-0">Select Languages:</legend>
-          <% user.languages.each_with_index do |language, index| %>
+          <% current_user.languages.each_with_index do |language, index| %>
+
             <div class="tag-item">
               <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
               <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language_name(language) %></label>
             </div>
           <% end %>
+
+          <div class="mt-4">
+            <%= render "favorites/create", book: book, current_user: current_user %>
+          </div>
         </fieldset>
-        <div class="mt-5 d-flex align-items-center gap-3">
-          <button type="submit" class="btn btn-primary text-white custom-button d-flex align-items-center">
+        <div class="mt-5">
+          <button type="submit" class="btn btn-primary text-white custom-button animate__animated" data-action="click->click-sound#playSound" <%= 'disabled' unless book.pages.any? %>>
             Open Book <span style="margin-left: 8px;"><i class="fa-solid fa-book-open"></i></span>
           </button>
-          <div class="d-flex align-items-center">
-            <%= render "favorites/create", book: book %>
-          </div>
+          <%= audio_tag("shine",data: {click_sound_target: 'audio'}) %>
+
         </div>
       <% end %>
     </div>
@@ -64,3 +72,5 @@
     });
   });
 </script>
+
+

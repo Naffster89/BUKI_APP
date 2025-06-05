@@ -3,7 +3,7 @@
   <div id="notifications"></div>
 <% end %>
 
-<div style="display: flex; flex-direction: row; align-items: center; background-image: url(<%= asset_path('background.jpg') %>); background-size: cover; background-position: center; padding: 40px 10%;">
+<div style="display: flex; flex-direction: row; align-items: center; background-image: url(<%= asset_path('background.png') %>); background-size: cover; background-position: bottom; padding: 40px 10%; min-height: 500px;">
   <div style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
     <h1 class="centered-text" style="color: white; font-family: 'Mooli'; font-size: 50px;">Pick a Language, Open a Storybook! </h1>
     <h3 class="centered-text" style="color: white;">With Buki, you can explore a world of children's books in the language you love. Choose, read, and discover — all in one place. </h3>
@@ -35,10 +35,6 @@
 <div class="container my-10 w-100">
   <div class="row justify-content-center">
     <div class="col-sm-12 my-3"></div>
-  </div>
-
-  <div class="d-flex justify-content-end mb-4">
-    <%= link_to "Create Your Own Book", new_book_path, class: "btn btn-success" %>
   </div>
 
   <div div class="cards-area row g-4 pb-5 mt-4 p-4" style="background-color: #fff; border-radius: 24px;">

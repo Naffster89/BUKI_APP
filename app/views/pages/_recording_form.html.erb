@@ -1,16 +1,19 @@
 <div id="audio-<%= page.id %>-<%= language %>" data-controller="audio-recorder">
   <% if recording.id %>
     <div class="text-end">
+      <button class="btn btn-outline-info text-secondary-emphasis rounded-pill" data-text="<%= page.text[language.upcase] %>"
+        data-language="<%= language.upcase %>" data-action="click->audio-recorder#playAi">AI <i class="fa-solid fa-play" style="pointer-events: none;"></i>
+      </button>
       <audio class="d-none" data-audio-recorder-target="audio" src="<%= recording.audio.url %>" controls></audio>
-      <button class="badge btn btn-outline-secondary text-secondary-emphasis rounded-pill" data-action="click->audio-recorder#play"><i class="fa-solid fa-play"></i></button>
+      <button class="btn btn-outline-secondary text-secondary-emphasis rounded-pill" data-action="click->audio-recorder#play"><i class="fa-solid fa-play" style="pointer-events: none;"></i></button>
     </div>
   <% else %>
     <div class="gap-1 d-flex align-items-center justify-content-end">
-      <button class="badge btn btn-outline-info text-secondary-emphasis rounded-pill" data-text="<%= page.text[language.upcase] %>"
+      <button class="btn btn-outline-info text-secondary-emphasis rounded-pill" data-text="<%= page.text[language.upcase] %>"
         data-language="<%= language.upcase %>" data-action="click->audio-recorder#playAi">AI <i class="fa-solid fa-play"></i>
       </button>
-      <button type="button" class="badge btn btn-outline-secondary text-secondary-emphasis rounded-pill" data-audio-recorder-target="start" data-action="click->audio-recorder#start"><i class="fa-solid fa-microphone"></i></button>
-      <button type="button" class="badge btn btn-outline-danger text-secondary-emphasis rounded-pill d-none" data-audio-recorder-target="stop" data-action="click->audio-recorder#stop"><i class="fa-solid fa-microphone"></i></button>
+      <button type="button" class="btn btn-outline-secondary text-secondary-emphasis rounded-pill" data-audio-recorder-target="start" data-action="click->audio-recorder#start"><i class="fa-solid fa-microphone" style="pointer-events: none;"></i></button>
+      <button type="button" class="btn btn-outline-danger text-secondary-emphasis rounded-pill d-none" data-audio-recorder-target="stop" data-action="click->audio-recorder#stop"><i class="fa-solid fa-microphone" style="pointer-events: none;"></i></button>
       <audio data-audio-recorder-target="audio" controls class="d-none"></audio>
       <%= simple_form_for [page, recording] do |f| %>
         <%= f.input :language, as: :hidden, input_html: { class: 'd-none', value: language } %>

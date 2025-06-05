@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="audio-recorder"
 export default class extends Controller {
-  static targets = ["start", "stop", "audio", "input", "delete", "submit"]
+  static targets = ["start", "stop", "audio", "input", "submit"]
 
   connect() {
     this.mediaRecorder = null
@@ -73,19 +73,27 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
       body: JSON.stringify({ text: text, language: language })
-    })
-      .then(response => {
+    }).then(response => {
+        console.log(response)
         if (!response.ok) throw new Error("TTS request failed");
         return response.blob();
       })
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const audio = new Audio(url);
+
+        // Set volume based on service
+        if (language === "JA") {
+          audio.volume = 0.5; // Lower volume for VoiceVox (Japanese)
+        } else {
+          audio.volume = 1.0; // Full volume for ElevenLabs (other languages)
+        }
+
         audio.play();
       })
-
       .catch(error => {
         console.error("🎧 Error playing audio:", error);
+
       })
         .then(response => {
           if (!response.ok) throw new Error("TTS request failed");
@@ -107,5 +115,8 @@ export default class extends Controller {
         .catch(error => {
           console.error("🎧 Error playing audio:", error);
         });
+
+    
+
   }
 }

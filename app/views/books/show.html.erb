@@ -1,5 +1,5 @@
 <div id="notifications"></div>
-<div class="book-container" style="max-width: 1200px; margin: 0 auto; padding: 24px 10%; font-family: sans-serif;">
+<div class="book-container" style="max-width: 1200px; margin: 0 auto; padding: 24px 10%; font-family: Mulish:400;">
 <%= turbo_stream_from "book_#{@book.id}" %>
-<%= render "books/container", book: @book, user: current_user %>
+<%= render "books/container", book: @book, current_user: current_user %>
 </div>

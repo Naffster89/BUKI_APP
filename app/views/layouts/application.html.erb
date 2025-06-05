@@ -14,8 +14,12 @@
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <%= render 'shared/ios_pwa_links' %>
     <link rel="apple-touch-startup-image" href="splash_background.png">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
   </head>
-  <body style="background-image: url('<%= asset_path 'background-yellow.jpg' %>'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+  <body style="background-image: url('<%= asset_path 'background-yellow.jpg' %>'); background-size: cover; background-repeat: no-repeat;">
     <% unless controller_name == 'pages' && action_name == 'show' %>
       <%= render "shared/topbar" %>
     <% end %>
