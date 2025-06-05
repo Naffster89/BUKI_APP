@@ -1,0 +1,13 @@
+<%= form_with url: book_page_path(book, params[:page_number]), method: :get, html:{data: {flipbook_target: 'form'}} do %>
+  <fieldset class="form-group pt-3">
+    <% current_user.languages.each_with_index do |language, index| %>
+      <div class="tag-item">
+        <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
+        <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language_name(language) %></label>
+      </div>
+    <% end %>
+    <button type="submit" class="rounded-pill p-2 btn btn-primary text-white">
+      Update language <span style="margin-left: 8px;"></span>
+    </button>
+  </fieldset>
+<% end %>

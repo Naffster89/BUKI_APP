@@ -1,7 +1,6 @@
-<div class="h-100">
+<div class="h-100" data-controller="flipbook" data-page="<%= params[:page_number] %>" data-book="<%= params[:book_id] %>">
   <!-- 🔔 Turbo notification target -->
   <div id="notifications" style="position: fixed; top: 20px; right: 20px; z-index: 1050;"></div>
-
   <!-- Hardcoded Book Page Text -->
   <div style="background-image: url('<%= asset_path("background-kaki.jpg") %>'); background-size: cover;
               background-repeat: no-repeat;
@@ -12,7 +11,7 @@
               left: 0;
               z-index: -1;
               background-position: center;"></div>
-  <div data-controller="flipbook" class="h-100">
+  <div class="h-100">
     <!-- All pages must be children of this container! -->
     <div data-flipbook-target="container" class="pageflip-container">
       <% @pages.each_with_index do |page, index| %>
@@ -23,7 +22,7 @@
               <%= render "pages/translated_texts", page: page, language: language, user: current_user %>
             <% end %>
           </div>
-          <div class="text-end mt-2">
+          <div class="text-end mt-2" data-flipbook-target="page">
             Page <%= index + 1 %> of <%= @pages.size %>
           </div>
         </div>
@@ -55,11 +54,12 @@
     </div>
   </div>
   <!-- Language Badges -->
-  <div class="bg-light border-top px-4 py-2 d-flex justify-content-end" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030;">
+  <div class="bg-light border-top px-4 py-2" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030; display: flex">
+    <%= render "pages/languages_in_page", book: @book, page: @page, current_user: current_user %>
     <!-- Return Button -->
-    <div class="text-center">
+    <div class="d-flex justify-content-end flex-grow-1">
       <%= link_to "Return to Book", book_path(@book),
           class: "rounded-pill btn btn-outline-primary custom-button" %>
-      </div>
     </div>
   </div>
+</div>
