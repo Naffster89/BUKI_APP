@@ -20,16 +20,6 @@ class BookGenerationJob < ApplicationJob
       Style: #{style}
     PROMPT
 
-    # Generate structured story data from GPT (array of hashes)
-    pages = BookGenerationService.new(
-      title: title,
-      author: "AI StoryBot",
-      character: full_character,
-      page_count: page_count
-    ).call
-
-    Rails.logger.info("📖 Received #{pages.size} structured pages from GPT.")
-
     book.update!(
       title: title,
       author: "AI StoryBot",
@@ -41,7 +31,7 @@ class BookGenerationJob < ApplicationJob
       "book_#{book.id}",
       partial: "books/container",
       target: "book-#{book.id}",
-      locals: { book: book, user: user }
+      locals: { book: book, current_user: user }
     )
 
     # Attach cover image
@@ -55,34 +45,34 @@ class BookGenerationJob < ApplicationJob
         "book_#{book.id}",
         partial: "books/container",
         target: "book-#{book.id}",
-        locals: { book: book, user: user }
+        locals: { book: book, current_user: user }
       )
     else
       Rails.logger.warn "⚠️ No cover image generated for Book ID #{book.id}"
     end
 
-    # Create pages and attach images
-    pages.each do |data|
-      page = book.pages.build(
-        page_number: data["page"],
-        text: { "EN" => data["text"] }
-      )
+    # Generate structured story data from GPT (array of hashes)
+    pages = BookGenerationService.new(
+      title: title,
+      author: "AI StoryBot",
+      character: full_character,
+      page_count: page_count
+    ).call
 
-      if page.save
-        Rails.logger.info "✅ Page #{page.page_number} saved successfully."
-      else
-        Rails.logger.error "❌ Failed to save page #{data['page']}: #{page.errors.full_messages.join(', ')}"
-        next
-      end
+    Rails.logger.info("📖 Received #{pages.size} structured pages from GPT.")
 
-      begin
-        image_url = CoverImageService.generate(prompt: data["image"], cover_url: cover_url)
-        image_file = URI.open(image_url)
-        page.photo.attach(io: image_file, filename: "page_#{data['page']}.jpg", content_type: "image/jpeg")
-      rescue => e
-        Rails.logger.warn "⚠️ Failed to attach image for page #{data['page']}: #{e.message}"
-      end
-    end
+   # Generate pages and attach images
+    PageGenerationService.new(pages, book, cover_url).call
+
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "book_#{book.id}",
+      partial: "books/container",
+      target: "book-#{book.id}",
+      locals: { book: book, current_user: user }
+    )
+
+    p pages
+    p book
 
     # Notify user via Turbo Stream
     Turbo::StreamsChannel.broadcast_append_to(
