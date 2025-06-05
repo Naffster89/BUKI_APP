@@ -25,7 +25,7 @@ class BookGenerationService
               [
                 {
                   "page": 1,
-                  "text": "Once upon a time, in a peaceful forest full of tall trees and colorful flowers, lived a friendly bear named Benny. Benny loved to play and explore, always wearing his favorite hat.",
+                  "text": "Once upon a time, in a peaceful forest full of tall trees, lived a friendly bear named Benny. Benny loved to play and explore, always wearing his favorite hat.",
                   "image": "A happy bear named Benny, playing in a forest filled with tall trees and vibrant flowers, wearing a hat."
                 },
                 {
