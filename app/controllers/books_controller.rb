@@ -41,6 +41,6 @@ class BooksController < ApplicationController
   private
 
   def invalid_input?
-    @character_name.blank? || @character_species.blank? || !@page_count.between?(5, 10)
+    @character_name.blank? || @character_species.blank? || !@page_count.between?(3, 10)
   end
 end

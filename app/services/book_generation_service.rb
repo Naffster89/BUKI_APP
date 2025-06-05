@@ -17,28 +17,30 @@ class BookGenerationService
           {
             role: "system",
             content: <<~SYS
-              You are a children's story generator that must return strict JSON.
-              Do not include explanations, markdown, or any extra content.
-              Output only a JSON array of 5 hashes with the keys: "page", "text", and "image".
+              You are a children’s story generator. Output must be valid JSON only — no extra commentary, markdown, or explanations.
 
-              Each page must follow this exact plot structure and return ONLY valid JSON in this format:
+              Format your output as a JSON array of exactly 3 hashes, each with the keys: "page", "text", and "image".
 
+              Example:
               [
-                { "page": 1, "text": "Page 1 story text...", "image": "Image description for page 1" },
-                { "page": 2, "text": "Page 2 story text...", "image": "Image description for page 2" },
-                { "page": 3, "text": "Page 3 story text...", "image": "Image description for page 3" },
-                { "page": 4, "text": "Page 4 story text...", "image": "Image description for page 4" },
-                { "page": 5, "text": "Page 5 story text...", "image": "Image description for page 5" }
+                {
+                  "page": 1,
+                  "text": "Once upon a time, in a peaceful forest full of tall trees, lived a friendly bear named Benny. Benny loved to play and explore, always wearing his favorite hat.",
+                  "image": "A happy bear named Benny, playing in a forest filled with tall trees and vibrant flowers, wearing a hat."
+                },
+                {
+                  "page": 2,
+                  "text": "One sunny day, Benny noticed that his beloved hat was missing! He looked high and low, but couldn't find it. Suddenly, a friendly blue bird fluttered down from a tree. Seeing Benny's distress, the bird offered to help him search for his hat.",
+                  "image": "An upset Benny looking around in the forest. A friendly blue bird flies down to help."
+                },
+                {
+                  "page": 3,
+                  "text": "Together, Benny and the bird searched the forest. Finally, they found the hat hanging on a branch of a tall tree. Benny was so happy! The bird reminded Benny, 'It’s okay to ask for help when you're stuck.' And they continued their day, filled with new adventures.",
+                  "image": "Benny and the bird finding the hat on a tree branch. They are celebrating and ready for more adventures."
+                }
               ]
 
-              Follow this plot outline exactly:
-              Page 1: Introduce #{@character} and the peaceful forest they live in.
-              Page 2: Introduce their problem — they’ve lost their favorite hat.
-              Page 3: They search high and low and get help from a friend.
-              Page 4: They nearly give up, but find a clue.
-              Page 5: They find the hat and learn a lesson about asking for help.
-
-              Each hash must represent one story page.
+              Follow the same structure with your output. Do not include anything outside the JSON array.
             SYS
           },
           { role: "user", content: @prompt }
@@ -63,28 +65,19 @@ class BookGenerationService
 
   def build_prompt
     <<~PROMPT
-      Write a 5-page children's story titled "#{@title}" by AI StoryBot.
+      Write a 3-page children's story titled "#{@title}" by AI StoryBot.
       The main character is #{@character}.
-      Each page must follow this exact plot structure and return ONLY valid JSON in this format:
 
-      [
-        { "page": 1, "text": "Page 1 story text...", "image": "Image description for page 1" },
-        { "page": 2, "text": "Page 2 story text...", "image": "Image description for page 2" },
-        { "page": 3, "text": "Page 3 story text...", "image": "Image description for page 3" },
-        { "page": 4, "text": "Page 4 story text...", "image": "Image description for page 4" },
-        { "page": 5, "text": "Page 5 story text...", "image": "Image description for page 5" }
-      ]
+      Follow this structure:
+      - Page 1: Introduce #{@character} living happily in a peaceful forest.
+      - Page 2: They realize their favorite hat is missing. A helpful blue bird appears and helps them search.
+      - Page 3: Together they find the hat. End with the lesson: "It’s okay to ask for help when you're stuck."
 
-      Follow this plot outline exactly:
-      Page 1: Introduce #{@character} and the peaceful forest they live in.
-      Page 2: Introduce their problem — they’ve lost their favorite hat.
-      Page 3: They search high and low and get help from a friend.
-      Page 4: They nearly give up, but find a clue.
-      Page 5: They find the hat and learn a lesson about asking for help.
-
-      Notes:
-      - Language should be simple and engaging for children aged 5–7.
-      - Do not include any non-JSON output.
+      Guidelines:
+      - Keep it light and fun for kids aged 5–7.
+      - Language should be warm, simple, and easy to understand.
+      - Make the blue bird friendly and encouraging.
+      - Return only the JSON array, with no extra formatting.
     PROMPT
   end
 end

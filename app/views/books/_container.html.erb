@@ -17,6 +17,7 @@
         <i class="fa-solid fa-spinner fa-spin"></i>
       <% end %>
     </div>
+
   </div>
   <!-- Book Info & Form Column -->
   <div class="col-7 d-flex flex-column justify-content-between">
@@ -34,6 +35,7 @@
             <div class="tag-item">
               <input class="form-check-input check_boxes optional tag-selector" type="checkbox" value="<%= language %>" name="languages[]" id="<%= language %>-<%= index %>">
               <label class="form-check-label collection_check_boxes" for="<%= language %>-<%= index %>"><%= language_name(language) %></label>
+
             </div>
           <% end %>
           <div class="mt-4">
