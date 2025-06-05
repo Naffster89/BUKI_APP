@@ -61,15 +61,15 @@ book_data = [
   },
     {
     title: "Adventures of the Teenie Weenies",
-    author: "Wm.  Donahey",
+    author: "Wm. Donahey",
     description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
     language: "French",
     cover_image: "01_Adventures_of_the_Teenie_Weenies.jpg"
   },
     {
     title: "Aesop's Fables Book 1",
-    author: "",
-    description: "Un conte poétique et philosophique sous l'apparence d'un conte pour enfants...",
+    author: "Aesop",
+    description: "Dating back to the 6th century BC, Aesop's Fables tell universal truths through the use of simple allegories that are easily understood. Though almost nothing is known of Aesop himself, and some scholars question whether he existed at all, these stories stand as timeless classics known in almost every culture in the world....",
     language: "French",
     cover_image: "01_Aesops_Fables_Bk1.jpg"
   },
