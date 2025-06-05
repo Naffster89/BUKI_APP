@@ -1,6 +1,6 @@
 <div id="favorite-<%= book.id %>" class="mb-3">
   <% if current_user && current_user.favorited?(book) %>
-    <%= link_to favorite_path(book), class: "custom-fav-button", data: { controller: "favorite", action: "click->favorite#click", turbo_method: :delete } do %>
+    <%= link_to favorite_path(book), class: "custom-fav-button", data: { controller: "favorite", action: "click->click-sound#animate click->favorite#click", turbo_method: :delete } do %>
       <i data-favorite-target="icon"
       class="fa-solid fa-heart text-danger heart-animate"
       style="--fa-animation-duration: 10s; --fa-shake-scale: 20;">
