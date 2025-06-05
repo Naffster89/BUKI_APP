@@ -8,14 +8,16 @@
 
     <div class="mb-3">
       <%= form.label :species, "What kind of character is it?", class: "form-label" %>
-      <%= form.select :character_species, options_for_select(["Bear", "Rabbit", "Fox", "Turtle", "Cat", "Dog", "Mouse", "Other"]), { prompt: "Choose a species" }, class: "form-select", required: true %>
+      <%= form.select :character_species, options_for_select(["Bear", "Rabbit", "Fox", "Turtle", "Cat", "Dog", "Mouse"]), { prompt: "Choose an animal" }, class: "form-select", required: true %>
     </div>
 
     <div class="mb-3">
       <%= form.label :page_count, "Number of pages", class: "form-label" %>
-      <%= form.number_field :page_count, min: 5, max: 10, value: 5, class: "form-control", required: true %>
+      <%= form.number_field :page_count, min: 3, max: 10, value: 3, class: "form-control", required: true %>
       <small class="form-text text-muted">Minimum 5 pages, maximum 10.</small>
     </div>
+
+    <%= form.hidden_field :page_count, value: 3 %>
 
   <p>
     <div style="text-align: center;">
