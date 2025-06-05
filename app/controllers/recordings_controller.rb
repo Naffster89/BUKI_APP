@@ -19,20 +19,6 @@ class RecordingsController < ApplicationController
     end
   end
 
-
-
-  def destroy
-    recording = @page.recordings.find_by(user: current_user)
-
-    if recording&.audio&.attached?
-      recording.audio.purge
-      recording.destroy
-      head :ok
-    else
-      head :not_found
-    end
-  end
-
   private
 
   def recording_params

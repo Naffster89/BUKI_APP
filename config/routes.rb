@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create]
   end
   resources :pages, only: [] do
-    resource :recordings, only: [:create, :destroy]
+    resource :recordings, only: [:create]
   end
 
   resources :favorites, only: [:index, :destroy]
