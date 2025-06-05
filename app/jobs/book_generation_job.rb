@@ -22,7 +22,7 @@ class BookGenerationJob < ApplicationJob
 
     book.update!(
       title: title,
-      author: "AI StoryBot",
+      author: user.username,
       description: description
     )
 
@@ -54,7 +54,7 @@ class BookGenerationJob < ApplicationJob
     # Generate structured story data from GPT (array of hashes)
     pages = BookGenerationService.new(
       title: title,
-      author: "AI StoryBot",
+      author: user.username,
       character: full_character,
       page_count: page_count
     ).call

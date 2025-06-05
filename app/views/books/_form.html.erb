@@ -11,19 +11,23 @@
       <%= form.select :character_species, options_for_select(["Bear", "Rabbit", "Fox", "Turtle", "Cat", "Dog", "Mouse"]), { prompt: "Choose an animal" }, class: "form-select", required: true %>
     </div>
 
+    <!-- FAKE DISPLAY ONLY (DISABLED) -->
     <div class="mb-3">
-      <%= form.label :page_count, "Number of pages", class: "form-label" %>
-      <%= form.number_field :page_count, min: 3, max: 10, value: 3, class: "form-control", required: true %>
+      <%= form.label :fake_page_count, "Number of pages", class: "form-label" %>
+      <%= form.number_field :fake_page_count, min: 3, max: 10, value: 3, class: "form-control", disabled: true %>
       <small class="form-text text-muted">Minimum 5 pages, maximum 10.</small>
     </div>
 
+    <!-- REAL VALUE SENT TO SERVER -->
     <%= form.hidden_field :page_count, value: 3 %>
 
-  <p>
-    <div style="text-align: center;">
-      <%= button_tag(type: "submit", class: "custom-button", style: "border: 0;") do %>
-    Generate Book
-    <i class="fa-solid fa-wand-magic-sparkles"></i>
+    <p>
+      <div style="text-align: center;">
+        <%= button_tag(type: "submit", class: "custom-button", style: "border: 0;") do %>
+          Generate Book
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <% end %>
+      </div>
+    </p>
   <% end %>
-  </p>
-<% end %>
+</div>
