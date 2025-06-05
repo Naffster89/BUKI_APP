@@ -45,7 +45,7 @@
           <button type="submit" class="btn btn-primary text-white custom-button animate__animated" data-action="click->click-sound#playSound" <%= 'disabled' unless book.pages.any? %>>
             Open Book <span style="margin-left: 8px;"><i class="fa-solid fa-book-open"></i></span>
           </button>
-          <%= audio_tag("shine",data: {click_sound_target: 'audio'}) %>
+          <%= audio_tag("shine.mp3",data: {click_sound_target: 'audio'}) %>
         </div>
       <% end %>
     </div>

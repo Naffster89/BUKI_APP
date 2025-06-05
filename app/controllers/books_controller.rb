@@ -5,7 +5,8 @@ class BooksController < ApplicationController
 
   def index
     @book = Book.new
-    @books = params[:query].present? ? Book.search_by_title_and_description(params[:query]) : Book.all
+    @books = params[:query].present? ?
+    Book.search_by_title_and_description(params[:query]).order(created_at: :desc) : Book.order(created_at: :desc)
   end
 
   def show
