@@ -10,13 +10,13 @@ User.destroy_all
 puts "📚 Creating books..."
 
 book_data = [
-  {
-    title: "Peter's Bizarre Adventures",
-    author: "Harry Potter",
-    description: "Peter goes on a batshit crazy journey in his sleep.",
-    language: "English",
-    cover_image: "Peter's Bizarre Adventures.jpg"
-  },
+  # {
+  #   title: "Peter's Bizarre Adventures",
+  #   author: "Harry Potter",
+  #   description: "Peter goes on a batshit crazy journey in his sleep.",
+  #   language: "English",
+  #   cover_image: "Peter's Bizarre Adventures.jpg"
+  # },
   {
     title: "The Story of a Fierce Bad Rabbit",
     author: "Beatrix Potter",
