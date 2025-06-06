@@ -45,7 +45,7 @@ class BookGenerationService
           },
           { role: "user", content: @prompt }
         ],
-        temperature: 0.7
+        temperature: 0.2
       }
     )
 
@@ -70,7 +70,7 @@ class BookGenerationService
 
       Follow this structure:
       - Page 1: Introduce #{@character} living happily in a peaceful forest.
-      - Page 2: They realize their favorite hat is missing. A helpful blue bird appears and helps them search.
+      - Page 2: #{@character} realizes their favorite hat is missing. A helpful blue bird appears and helps them search.
       - Page 3: Together they find the hat. End with the lesson: "It’s okay to ask for help when you're stuck."
 
       Guidelines:

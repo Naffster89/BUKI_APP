@@ -36,7 +36,7 @@
       <% end %>
     </div>
     <!-- Buttons -->
-    <div class="container-fluid d-flex justify-content-between px-4 my-5">
+    <%# <div class="container-fluid d-flex justify-content-between px-4 my-5">
       <button data-action="flipbook#previous"
           class="rounded-pill btn btn-outline-primary bg-white"
           onmousedown="this.classList.remove('bg-white')"
@@ -52,9 +52,9 @@
         Next page &gt;&gt;
       </button>
     </div>
-  </div>
+  </div> %>
   <!-- Language Badges -->
-  <div class="bg-light border-top px-4 py-2" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030; display: flex">
+  <div class="bg-light border-top px-4 pt-2 pb-4" style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 1030; display: flex">
     <%= render "pages/languages_in_page", book: @book, page: @page, current_user: current_user %>
     <!-- Return Button -->
     <div class="d-flex justify-content-end flex-grow-1">
