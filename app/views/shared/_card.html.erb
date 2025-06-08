@@ -1,16 +1,16 @@
 <% return unless book.present? %>
 
-<div class="card shadow-sm w-100" style="height: 500px;">
+<div class="card shadow-sm w-100" style="height: 450px;">
   <%= image_tag(
         book.cover_image.attached? ? url_for(book.cover_image) : "placeholder.jpg",
         class: "card-img-top",
-        style: "object-fit: cover; height: 250px; object-position: top;"
+        style: "object-fit: cover; height: 250px; object-position: top; border-radius: 0.5rem;"
       ) %>
 
   <div class="card-body" style="display: flex; flex-direction: column; height: 250px;">
-    <h2 class="card-title mb-2" style="font-size: 1.1rem;"><%= book.title %></h2>
+    <h2 class="card-title mb-2" style="font-size: 1.1rem; font-weight: 700;"><%= book.title %></h2>
     <h3 class="card-text mb-2" style="font-size: 0.95rem;"><%= book.author %></h3>
-    <p class="card-text mt-1 mb-0" style="line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+    <p class="card-text mt-1 mb-0" style="font-size: 15px; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; color: gray;">
       <%= book.description %>
     </p>
   </div>
