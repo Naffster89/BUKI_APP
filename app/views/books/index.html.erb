@@ -5,8 +5,8 @@
 
 <div style="display: flex; flex-direction: row; align-items: center; background-image: url(<%= asset_path('background.png') %>); background-size: cover; background-position: bottom; padding: 40px 10%; min-height: 500px;">
   <div style="flex: 1; display: flex; flex-direction: column; gap: 24px;">
-    <h1 class="centered-text" style="color: white; font-family: 'Mooli'; font-size: 50px;">Pick a Language, Open a Storybook! </h1>
-    <h3 class="centered-text" style="color: white;">With Buki, you can explore a world of children's books in the language you love. Choose, read, and discover — all in one place. </h3>
+    <h1 class="centered-text" style="color: white; font-family: 'Mooli'; font-size: 50px;">Pick a Language, Open a Book! </h1>
+    <h3 class="centered-text" style="color: white;">With Buki, you can explore a world of children's books in your chosen language. Read and discover — all in one place. </h3>
     <%= form_with url: books_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query, params[:query], class: "form-control rounded-pill search-input", placeholder: "Search a book title", style: "color: black; border-radius: 50px; transition: transform 1s;" %>
       <style>
